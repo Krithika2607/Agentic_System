@@ -57,5 +57,5 @@ def format_last_requests(history: list, last_n: int = 5) -> str:
             f"{i}. {status} **{e.get('query', '')[:60]}** — {e.get('intent', '')} / {e.get('tool_name', '')}{err}"
         )
         if e.get("summary"):
-            lines.append(f"   Summary: {e['summary'][:120]}...")
+            lines.append(f"   Summary: {e['summary'][:200]}" + ("..." if len(e.get("summary", "")) > 200 else ""))
     return "**Last requests in this session:**\n\n" + "\n".join(lines)

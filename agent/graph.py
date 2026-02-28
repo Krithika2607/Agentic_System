@@ -117,9 +117,12 @@ If the user is asking about the status of their last request, what just happened
 {memory_block}
 Classify this user query into exactly ONE category:
 - api_action: user wants to DO something (send payment, create invoice, check order, get disputes)
-- knowledge: user asking HOW something works or needs explanation  
-- system_search: user asking what tools/capabilities are available OR asking about the status of their last/previous request (use memory above)
-- multi_step: user request needs multiple API calls in sequence
+- knowledge: user asking HOW something works or needs explanation from documents (e.g. "how does refund work?" from docs)
+- system_search: user asking WHAT TOOLS/capabilities exist, what the agent can do, or "how do I ... via the API" (e.g. "What tools do I have for subscriptions?", "How do I send an invoice via the API?") OR asking about the status of their last/previous request (use memory above)
+- multi_step: user request needs multiple API calls in sequence (e.g. create subscription plan then subscribe, or create invoice then send)
+
+If the user asks "what tools", "what can I do", "how do I ... via the API", or which endpoints/capabilities exist → system_search (they want the tool registry, not RAG).
+If the user wants to "create a subscription" or "subscription plan for $X/month" → multi_step (requires: create plan first, then create subscription with that plan_id).
 
 User query: "{query}"
 
@@ -141,7 +144,19 @@ Respond with ONLY one word from: api_action, knowledge, system_search, multi_ste
 def tool_retriever(state: AgentState) -> AgentState:
     """Retrieve top-k most relevant tools; if best score below threshold, ask for clarification."""
     query = state["user_query"]
-    top_tools = retrieve_top_tools(query, top_k=TOOL_TOP_K)
+    try:
+        top_tools = retrieve_top_tools(query, top_k=TOOL_TOP_K)
+    except Exception as e:
+        err_msg = str(e).lower()
+        if "hnsw" in err_msg or "nothing found on disk" in err_msg or "chroma" in err_msg:
+            print("⚠️ ChromaDB tool index missing or corrupted. Run from project root: python ingest.py")
+            return {
+                **state,
+                "retrieved_tools": [],
+                "skip_to_clarification": True,
+                "error": "Tool registry unavailable. From the project root run: **python ingest.py** to index PayPal tools.",
+            }
+        raise
 
     print(f"🔍 Retrieved {len(top_tools)} tools (top_k={TOOL_TOP_K}):")
     for t in top_tools:
@@ -191,7 +206,7 @@ Is the user asking about the status of their last/previous request or what just 
 # ─────────────────────────────────────────
 def clarification_node(state: AgentState) -> AgentState:
     """User intent unclear; ask for clarification instead of guessing."""
-    msg = (
+    msg = state.get("error") or (
         "I'm not sure which action you mean. Could you rephrase or be more specific? "
         "For example: \"Send an invoice for $50 to john@example.com\", "
         "\"List my invoices\", or \"What tools are available for disputes?\""
@@ -302,6 +317,7 @@ IMPORTANT RULES:
 4. Extract ALL values from the user's message (amounts, emails, names, dates)
 5. Use sandbox base URL: https://api-m.sandbox.paypal.com
 6. Return ONLY valid JSON, no markdown, no explanation
+7. Subscriptions: To "create a subscription" or "subscription plan for $X/month", use multi_step: FIRST Create plan (POST /v1/billing/plans) with billing_cycles for that price, THEN Create subscription (POST /v1/billing/subscriptions) with the plan_id returned from step 1. Never invent plan_id (e.g. "P-10M"); it must come from the Create plan API response. start_time for Create subscription MUST be a future ISO 8601 datetime (e.g. one hour from now).
 
 For "Send invoice for $50 to john@example.com":
 - Correct first step: POST /v2/invoicing/invoices (create it first!)
@@ -383,6 +399,16 @@ def tool_executor(state: AgentState) -> AgentState:
             plan["body"] = body
             print(f"🔢 Injected unique invoice number: {unique_num}")
 
+    # ── Subscription start_time must be a future date; fix if missing or in the past
+    if "billing/subscriptions" in plan.get("endpoint", "") and plan.get("method", "").upper() == "POST":
+        from datetime import datetime, timezone, timedelta
+        now = datetime.now(timezone.utc)
+        future = (now + timedelta(hours=1)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+        if not body.get("start_time") or body.get("start_time", "") < now.strftime("%Y-%m-%dT%H:%M:%S.000Z"):
+            body["start_time"] = future
+            plan["body"] = body
+            print(f"📅 Injected future start_time for subscription: {future}")
+
     print(f"⚡ Executing: {plan['method']} {plan['endpoint']}")
 
     result = execute_paypal_api(
@@ -449,15 +475,17 @@ def multi_step_decide(state: AgentState) -> AgentState:
 
     # Ask LLM: one more step or done?
     steps_done = "\n".join([f"  Step {r['step']}: {r['tool_name']} -> {r['result_summary'][:100]}..." for r in multi_step_results])
+    last_data = api_result.get("data") or {}
     prompt = f"""User asked: "{query}"
 
 Steps completed so far:
 {steps_done}
 
-Last API result (full): {json.dumps(api_result.get('data', {}))[:600]}
+Last API result (full): {json.dumps(last_data)[:600]}
 
 Is there exactly one more API call needed to fully satisfy the user? If no more steps needed, reply with ONLY: {{"done": true}}
 If one more step is needed, reply with a JSON execution plan: {{"done": false, "tool_name": "...", "method": "GET|POST|...", "endpoint": "full URL", "body": {{}} or null, "query_params": {{}}}}
+If the next step is Create subscription (POST .../billing/subscriptions), you MUST set body.plan_id to the plan id from the last API result (e.g. last_data["id"] from Create plan response). Set body.start_time to a future ISO 8601 datetime (e.g. one hour from now).
 Return ONLY valid JSON, no markdown."""
 
     response = llm.invoke([HumanMessage(content=prompt)])

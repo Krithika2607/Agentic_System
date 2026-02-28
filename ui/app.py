@@ -42,6 +42,12 @@ st.markdown("""
         font-size: 13px; color: inherit;
         white-space: pre-wrap; word-wrap: break-word;
     }
+    /* Ensure long responses (e.g. last request status) are fully visible with scroll */
+    [data-testid="stChatMessage"] div[data-testid="stMarkdown"] {
+        max-height: 70vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
     .upload-success {
         background: rgba(40,167,69,0.1);
         border: 1px solid #28a745;
@@ -72,8 +78,11 @@ if "messages" not in st.session_state:
         "content": (
             "👋 Hello! I'm your PayPal AI Agent.\n\n"
             "I can help you with **three types of requests** automatically:\n\n"
-            "**💳 PayPal Actions** (calls real API)\n"
+            "**💳 PayPal Actions** (calls API)\n"
             "- Send an invoice for $50 to john@example.com\n"
+            "- List all my invoices\n"
+            "- Create a draft invoice for $100 to alice@test.com\n"
+            "- Create an order for $75 USD\n"
             "- What was my total sales volume last month?\n"
             "- Is there a dispute open from user_123?\n\n"
             "**📚 Document Questions** (searches uploaded docs)\n"
@@ -82,8 +91,11 @@ if "messages" not in st.session_state:
             "- What dimensions must the widget view be?\n"
             "- What should not be placed in widget view pages?\n"
             "- Summarize the PayPal App UI guidelines\n\n"
-            "**🔍 System Search** (searches tool capabilities)\n"
-            "- What tools are available for managing invoices?\n\n"
+            "**🔍 System Search**\n"
+            "- What tools are available for managing invoices?\n"
+            "- What can this system do for payments?\n"
+            "- What tools do I have for subscriptions?\n"
+            "- What's the status of my last request?\n\n"
             "Just type naturally — I'll figure out what to do!"
         )
     }]
@@ -217,65 +229,6 @@ with st.sidebar:
     → Searches tool registry
     </div>
     """, unsafe_allow_html=True)
-
-    st.markdown("---")
-
-    # Example queries
-    st.markdown("### 💡 Examples")
-    st.caption("Tip: do *Create/Send* first, then *List* — or List may be empty.")
-    st.markdown("**📚 Document questions** (searches uploaded docs)")
-    doc_examples = [
-        "What are the Widget view guidelines?",
-        "What are the Badge view guidelines?",
-        "What dimensions must the widget view be?",
-        "What should not be placed in widget view pages?",
-        "Summarize the PayPal App UI guidelines",
-        "What does the document say about testing and submitting a PayPal App?",
-    ]
-    for ex in doc_examples:
-        if st.button(ex, key=f"btn_doc_{ex}", use_container_width=True):
-            st.session_state.pending_query = ex
-            st.rerun()
-    st.markdown("**💳 Invoices** (create → then list)")
-    invoice_examples = [
-        "Send an invoice for $50 to john@example.com",
-        "List all my invoices",
-    ]
-    for ex in invoice_examples:
-        if st.button(ex, key=f"btn_inv_{ex}", use_container_width=True):
-            st.session_state.pending_query = ex
-            st.rerun()
-
-    st.markdown("**💳 Orders** (create → then show details by ID)")
-    st.caption("PayPal has no 'list orders' API. Use the order ID returned from create.")
-    order_examples = [
-        "Create an order for $75 USD",
-        "Show order details for order <order_id>",
-    ]
-    for ex in order_examples:
-        if st.button(ex, key=f"btn_ord_{ex}", use_container_width=True):
-            st.session_state.pending_query = ex
-            st.rerun()
-
-    st.markdown("**💳 Disputes & Transactions**")
-    other_examples = [
-        "List my open disputes",
-        "Show me my recent transactions",
-    ]
-    for ex in other_examples:
-        if st.button(ex, key=f"btn_oth_{ex}", use_container_width=True):
-            st.session_state.pending_query = ex
-            st.rerun()
-
-    st.markdown("**🔍 System**")
-    system_examples = [
-        "What tools are available for managing invoices?",
-        "What was the status of my last request?",
-    ]
-    for ex in system_examples:
-        if st.button(ex, key=f"btn_sys_{ex}", use_container_width=True):
-            st.session_state.pending_query = ex
-            st.rerun()
 
     st.markdown("---")
     if st.button("🗑️ Clear Chat", use_container_width=True):

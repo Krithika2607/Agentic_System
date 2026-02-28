@@ -22,6 +22,7 @@ load_dotenv()
 _project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _chroma_dir_env = os.getenv("CHROMA_PERSIST_DIR", "./vectorstore/chroma_db")
 CHROMA_DIR = _chroma_dir_env if os.path.isabs(_chroma_dir_env) else os.path.normpath(os.path.join(_project_root, _chroma_dir_env))
+CHROMA_DIR = os.path.abspath(CHROMA_DIR)
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "mixedbread-ai/mxbai-embed-large-v1")
 RAG_COLLECTION = "knowledge_base"
 
