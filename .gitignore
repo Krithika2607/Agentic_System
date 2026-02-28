@@ -12,8 +12,8 @@ venv/
 .venv/
 env/
 
-# ChromaDB / vectorstore data
-vectorstore/chroma_db/
+# ChromaDB / vectorstore data (uncomment to ignore local DB; folder is tracked in repo)
+# vectorstore/chroma_db/
 
 # IDE
 .idea/
