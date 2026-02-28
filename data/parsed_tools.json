@@ -1,0 +1,3553 @@
+{
+  "total_tools": 111,
+  "categories": {
+    "Authorization": 4,
+    "Orders": 9,
+    "Payments": 7,
+    "Invoices": 15,
+    "Templates": 5,
+    "Catalog Products": 4,
+    "Plans": 7,
+    "Subscriptions": 9,
+    "Payouts": 4,
+    "Webhooks": 13,
+    "Shipment Tracking": 3,
+    "Transaction Search": 2,
+    "Currency Exchange": 2,
+    "Disputes": 15,
+    "Manage Accounts": 6,
+    "Vault Payment Source - Setup Tokens": 2,
+    "Vault Payment Source - Payment token": 4
+  },
+  "tools": [
+    {
+      "tool_id": "authorization_generate_access_token",
+      "name": "Generate access_token",
+      "folder": "Authorization",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+      "description": "Tool to generate access_token. Category: Authorization. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/oauth2/token. Use this tool when the user wants to generate access_token or perform authorization related operations.",
+      "parameters": {
+        "grant_type": {
+          "in": "body",
+          "description": "The credential type to exchange for an access token.",
+          "value": "authorization_code"
+        },
+        "refresh_token": {
+          "in": "body",
+          "description": "The refresh token. Use to get access tokens. Use the same authorization grant as described in [OAuth2.0 RFC6749 Section 6](https://tools.ietf.org/html/rfc6749#section-6). Returns value only for `POST /token` calls with a `grant_type` of `authorization_code`.",
+          "value": "{{refresh_token}}"
+        },
+        "code": {
+          "in": "body",
+          "description": "The authorization code that the `/login` call returns to the client to complete a user log in and get a third-party access token. Required if the `grant_type` is `authorization_code`.",
+          "value": "{{authorization_code}}"
+        },
+        "ignoreCache": {
+          "in": "body",
+          "description": "A new token is issued ignoring the previously issued and still not expired token.",
+          "value": "true"
+        },
+        "return_authn_schemes": {
+          "in": "body",
+          "description": "Lists user authentication options and returns a first-party access token to authenticate an end user. Valid for all grant types except the `authzcode` authorization code, which indicates that the user is already authenticated.",
+          "value": "true"
+        },
+        "return_client_metadata": {
+          "in": "body",
+          "description": "Lists client metadata attributes. Valid for all grant types.",
+          "value": "true"
+        },
+        "return_unconsented_scopes": {
+          "in": "body",
+          "description": "Lists unconsented scopes between the user and client. Valid for all grant types except `client_credentials`.",
+          "value": "true"
+        },
+        "redirect_uri": {
+          "in": "body",
+          "description": "The redirection endpoint that terminates the user authorization flow. The value must be an EXACT match to the URI registered for the client during the client registration. If you pass the `target_client_id` parameter, the URI must be `target_client_id`. The out-of-band value is `urn:ietf:wg:oauth:2.0:oob`. Native apps can use the `redirect_uri` parameter.",
+          "value": ""
+        },
+        "response_type": {
+          "in": "body",
+          "description": "",
+          "value": "uat"
+        },
+        "claims[]": {
+          "in": "body",
+          "description": "The client-specific key-and-value pairs associated with the access token. You can retrieve these pairs through the security context. Use a comma (`,`) to separate the key-and-value pairs.",
+          "value": "customer_id:A2062N462U97"
+        },
+        "scope": {
+          "in": "body",
+          "description": "A list of space-separated and case-sensitive scopes, or permissions, to associate with the access token. If you omit this value, the API assumes the maximum set of allowed scopes. The scopes must be one of these values:\nA subset of the scopes authorized for the client.\nConsented by the user in case of end-user scopes.\nAssociated with the refresh token, depending on the `grant_type`.",
+          "value": ""
+        },
+        "device_info": {
+          "in": "body",
+          "description": "The URL-encoded key-and-value pair that defines device information. If `unbind_device` is `true`, you must include the `device_info` or `refresh_token` parameter.",
+          "value": ""
+        },
+        "app_info": {
+          "in": "body",
+          "description": "The URL-encoded key-and-value pair that defines application information. If `unbind_device` is `true`, you must include the `app_info` or `refresh_token` parameter.",
+          "value": ""
+        },
+        "risk_data": {
+          "in": "body",
+          "description": "The URL-encoded key-and-value pairs of data required by risk. You can typically obtain values through the Dyson library. Required for public clients.",
+          "value": ""
+        },
+        "target_subject": {
+          "in": "body",
+          "description": "The email address or payer ID of the user for whom you want to create an access token. Required if the `grant_type` is `client_credentials`, `refresh_token`, or `urn:paypal:params:oauth2:grant_type:unique_device_identifier`. This kind of `/token` request comes from a legacy client without REST API credentials.",
+          "value": ""
+        },
+        "target_client_id": {
+          "in": "body",
+          "description": "The client ID of the client application for which the access token is created. Because the client who makes this kind of `/bind` request is a proxy, identifies the real client application. The client ID must have the `GRANT_PROXY_CLIENT` scope to use the `target_client_id` parameter.",
+          "value": ""
+        },
+        "partner_client_id": {
+          "in": "body",
+          "description": "The ID of the partner with permission granted by the merchant for the partner to create the access token. Required, and only relevant, if the `grant_type` is set to `client_credentials`, `refresh_token`, or `urn:paypal:params:oauth2:grant_type:unique_device_identifier",
+          "value": ""
+        }
+      },
+      "full_text": "Generate access_token Authorization POST https://api-m.sandbox.paypal.com/v1/oauth2/token Tool to generate access_token. Category: Authorization. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/oauth2/token. Use this tool when the user wants to generate access_token or perform authorization related operations."
+    },
+    {
+      "tool_id": "authorization_terminate_access_token",
+      "name": "Terminate access_token",
+      "folder": "Authorization",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/oauth2/token/terminate",
+      "description": "Tool to terminate access_token. Category: Authorization. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/oauth2/token/terminate. Use this tool when the user wants to terminate access_token or perform authorization related operations.",
+      "parameters": {
+        "token": {
+          "in": "body",
+          "description": "",
+          "value": "{{access_token}}"
+        },
+        "token_type_hint": {
+          "in": "body",
+          "description": "",
+          "value": "ACCESS_TOKEN"
+        },
+        "grant_type": {
+          "in": "body",
+          "description": "",
+          "value": "authorization_code"
+        },
+        "refresh_token": {
+          "in": "body",
+          "description": "",
+          "value": "{{refresh_token}}"
+        },
+        "code": {
+          "in": "body",
+          "description": "",
+          "value": "{{authorization_code}}"
+        }
+      },
+      "full_text": "Terminate access_token Authorization POST https://api-m.sandbox.paypal.com/v1/oauth2/token/terminate Tool to terminate access_token. Category: Authorization. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/oauth2/token/terminate. Use this tool when the user wants to terminate access_token or perform authorization related operations."
+    },
+    {
+      "tool_id": "authorization_user_info",
+      "name": "User Info",
+      "folder": "Authorization",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/identity/oauth2/userinfo?schema=paypalv1.1",
+      "description": "Tool to user info. Category: Authorization. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/identity/oauth2/userinfo?schema=paypalv1.1. Use this tool when the user wants to user info or perform authorization related operations.",
+      "parameters": {
+        "schema": {
+          "in": "query",
+          "description": "(Required) Filters the response by a schema. Supported value is `paypalv1.1`.",
+          "value": "paypalv1.1"
+        }
+      },
+      "full_text": "User Info Authorization GET https://api-m.sandbox.paypal.com/v1/identity/oauth2/userinfo?schema=paypalv1.1 Tool to user info. Category: Authorization. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/identity/oauth2/userinfo?schema=paypalv1.1. Use this tool when the user wants to user info or perform authorization related operations."
+    },
+    {
+      "tool_id": "authorization_generate_client_token",
+      "name": "Generate client_token",
+      "folder": "Authorization",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/identity/generate-token",
+      "description": "Tool to generate client_token. Category: Authorization. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/identity/generate-token. Use this tool when the user wants to generate client_token or perform authorization related operations.",
+      "parameters": {
+        "customer_id": {
+          "in": "body",
+          "description": "Body parameter: customer_id",
+          "value": "{{$timestamp}}"
+        }
+      },
+      "full_text": "Generate client_token Authorization POST https://api-m.sandbox.paypal.com/v1/identity/generate-token Tool to generate client_token. Category: Authorization. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/identity/generate-token. Use this tool when the user wants to generate client_token or perform authorization related operations."
+    },
+    {
+      "tool_id": "orders_create_order",
+      "name": "Create order",
+      "folder": "Orders",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/checkout/orders",
+      "description": "Tool to create order. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders. Use this tool when the user wants to create order or perform orders related operations.",
+      "parameters": {
+        "intent": {
+          "in": "body",
+          "description": "Body parameter: intent",
+          "value": "{{order_intent}}"
+        },
+        "payment_source": {
+          "in": "body",
+          "description": "Body parameter: payment_source",
+          "value": {
+            "paypal": {
+              "experience_context": {
+                "return_url": "https://developer.paypal.com",
+                "cancel_url": "https://www.bing.com",
+                "user_action": "PAY_NOW"
+              }
+            }
+          }
+        },
+        "purchase_units": {
+          "in": "body",
+          "description": "Body parameter: purchase_units",
+          "value": [
+            {
+              "amount": {
+                "currency_code": "USD",
+                "value": "100.00"
+              }
+            }
+          ]
+        }
+      },
+      "full_text": "Create order Orders POST https://api-m.sandbox.paypal.com/v2/checkout/orders Tool to create order. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders. Use this tool when the user wants to create order or perform orders related operations."
+    },
+    {
+      "tool_id": "orders_confirm_payment_source",
+      "name": "Confirm Payment Source",
+      "folder": "Orders",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/confirm-payment-source",
+      "description": "Tool to confirm payment source. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/confirm-payment-source. Use this tool when the user wants to confirm payment source or perform orders related operations.",
+      "parameters": {
+        "payment_source": {
+          "in": "body",
+          "description": "Body parameter: payment_source",
+          "value": {
+            "card": {
+              "number": "4111111111111111",
+              "expiry": "2035-12"
+            }
+          }
+        }
+      },
+      "full_text": "Confirm Payment Source Orders POST https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/confirm-payment-source Tool to confirm payment source. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/confirm-payment-source. Use this tool when the user wants to confirm payment source or perform orders related operations."
+    },
+    {
+      "tool_id": "orders_show_order_details",
+      "name": "Show order details",
+      "folder": "Orders",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id",
+      "description": "Tool to show order details. Category: Orders. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id. Use this tool when the user wants to show order details or perform orders related operations.",
+      "parameters": {},
+      "full_text": "Show order details Orders GET https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id Tool to show order details. Category: Orders. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id. Use this tool when the user wants to show order details or perform orders related operations."
+    },
+    {
+      "tool_id": "orders_update_order",
+      "name": "Update order",
+      "folder": "Orders",
+      "method": "PATCH",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id",
+      "description": "Tool to update order. Category: Orders. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id. Use this tool when the user wants to update order or perform orders related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/purchase_units/@reference_id=='default'/shipping/address\",\n        \"value\": {\n            \"address_line_1\": \"123 Townsend St\",\n            \"address_line_2\": \"Floor 6\",\n            \"admin_area_2\": \"San Francisco\",\n            \"admin_area_1\": \"CA\",\n            \"postal_code\": \"94107\",\n            \"country_code\": \"US\"\n        }\n    },\n    {\n        \"op\": \"add\",\n        \"path\": \"/purchase_units/@reference_id=='default'/invoice_id\",\n        \"value\": \"0301"
+        }
+      },
+      "full_text": "Update order Orders PATCH https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id Tool to update order. Category: Orders. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id. Use this tool when the user wants to update order or perform orders related operations."
+    },
+    {
+      "tool_id": "orders_authorize_payment_for_order",
+      "name": "Authorize payment for order",
+      "folder": "Orders",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/authorize",
+      "description": "Tool to authorize payment for order. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/authorize. Use this tool when the user wants to authorize payment for order or perform orders related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": ""
+        }
+      },
+      "full_text": "Authorize payment for order Orders POST https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/authorize Tool to authorize payment for order. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/authorize. Use this tool when the user wants to authorize payment for order or perform orders related operations."
+    },
+    {
+      "tool_id": "orders_capture_payment_for_order",
+      "name": "Capture payment for order",
+      "folder": "Orders",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/capture",
+      "description": "Tool to capture payment for order. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/capture. Use this tool when the user wants to capture payment for order or perform orders related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": ""
+        }
+      },
+      "full_text": "Capture payment for order Orders POST https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/capture Tool to capture payment for order. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/capture. Use this tool when the user wants to capture payment for order or perform orders related operations."
+    },
+    {
+      "tool_id": "orders_confirm_payment_source_-_3ds",
+      "name": "Confirm Payment Source - 3DS",
+      "folder": "Orders",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/confirm-payment-source",
+      "description": "Tool to confirm payment source - 3ds. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/confirm-payment-source. Use this tool when the user wants to confirm payment source - 3ds or perform orders related operations.",
+      "parameters": {
+        "payment_source": {
+          "in": "body",
+          "description": "Body parameter: payment_source",
+          "value": {
+            "card": {
+              "number": "4032037064388131",
+              "expiry": "2035-12",
+              "name": "John Doe",
+              "billing_address": {
+                "address_line_1": "2211 N First Street",
+                "address_line_2": "17.3.160",
+                "admin_area_1": "CA",
+                "admin_area_2": "San Jose",
+                "postal_code": "95131",
+                "country_code": "US"
+              },
+              "attributes": {
+                "verification": {
+                  "method": "{{card_verification_method}}"
+                }
+              }
+            }
+          }
+        }
+      },
+      "full_text": "Confirm Payment Source - 3DS Orders POST https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/confirm-payment-source Tool to confirm payment source - 3ds. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/confirm-payment-source. Use this tool when the user wants to confirm payment source - 3ds or perform orders related operations."
+    },
+    {
+      "tool_id": "orders_add_tracking_information_for_an_order",
+      "name": "Add tracking information for an order",
+      "folder": "Orders",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/track",
+      "description": "Tool to add tracking information for an order. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/track. Use this tool when the user wants to add tracking information for an order or perform orders related operations.",
+      "parameters": {
+        "capture_id": {
+          "in": "body",
+          "description": "Body parameter: capture_id",
+          "value": "{{capture_id}}"
+        },
+        "tracking_number": {
+          "in": "body",
+          "description": "Body parameter: tracking_number",
+          "value": "{{tracking_number}}"
+        },
+        "carrier": {
+          "in": "body",
+          "description": "Body parameter: carrier",
+          "value": "FEDEX"
+        }
+      },
+      "full_text": "Add tracking information for an order Orders POST https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/track Tool to add tracking information for an order. Category: Orders. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/track. Use this tool when the user wants to add tracking information for an order or perform orders related operations."
+    },
+    {
+      "tool_id": "orders_update_tracking_information_for_an_order",
+      "name": "Update tracking information for an order",
+      "folder": "Orders",
+      "method": "PATCH",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/trackers/:tracking_id",
+      "description": "Tool to update tracking information for an order. Category: Orders. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/trackers/:tracking_id. Use this tool when the user wants to update tracking information for an order or perform orders related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/status\",\n        \"value\": \"CANCELLED\"\n    }\n]"
+        }
+      },
+      "full_text": "Update tracking information for an order Orders PATCH https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/trackers/:tracking_id Tool to update tracking information for an order. Category: Orders. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v2/checkout/orders/:order_id/trackers/:tracking_id. Use this tool when the user wants to update tracking information for an order or perform orders related operations."
+    },
+    {
+      "tool_id": "payments_show_details_for_authorized_payment",
+      "name": "Show details for authorized payment",
+      "folder": "Payments",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id",
+      "description": "Tool to show details for authorized payment. Category: Payments. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id. Use this tool when the user wants to show details for authorized payment or perform payments related operations.",
+      "parameters": {},
+      "full_text": "Show details for authorized payment Payments GET https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id Tool to show details for authorized payment. Category: Payments. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id. Use this tool when the user wants to show details for authorized payment or perform payments related operations."
+    },
+    {
+      "tool_id": "payments_reauthorize_authorized_payment",
+      "name": "Reauthorize authorized payment",
+      "folder": "Payments",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/reauthorize",
+      "description": "Tool to reauthorize authorized payment. Category: Payments. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/reauthorize. Use this tool when the user wants to reauthorize authorized payment or perform payments related operations.",
+      "parameters": {
+        "amount": {
+          "in": "body",
+          "description": "Body parameter: amount",
+          "value": {
+            "value": "10.99",
+            "currency_code": "USD"
+          }
+        }
+      },
+      "full_text": "Reauthorize authorized payment Payments POST https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/reauthorize Tool to reauthorize authorized payment. Category: Payments. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/reauthorize. Use this tool when the user wants to reauthorize authorized payment or perform payments related operations."
+    },
+    {
+      "tool_id": "payments_void_authorized_payment",
+      "name": "Void authorized payment",
+      "folder": "Payments",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/void",
+      "description": "Tool to void authorized payment. Category: Payments. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/void. Use this tool when the user wants to void authorized payment or perform payments related operations.",
+      "parameters": {},
+      "full_text": "Void authorized payment Payments POST https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/void Tool to void authorized payment. Category: Payments. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/void. Use this tool when the user wants to void authorized payment or perform payments related operations."
+    },
+    {
+      "tool_id": "payments_capture_authorized_payment",
+      "name": "Capture authorized payment",
+      "folder": "Payments",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/capture",
+      "description": "Tool to capture authorized payment. Category: Payments. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/capture. Use this tool when the user wants to capture authorized payment or perform payments related operations.",
+      "parameters": {
+        "amount": {
+          "in": "body",
+          "description": "Body parameter: amount",
+          "value": {
+            "value": "60",
+            "currency_code": "USD"
+          }
+        },
+        "invoice_id": {
+          "in": "body",
+          "description": "Body parameter: invoice_id",
+          "value": "{{$timestamp}}"
+        },
+        "final_capture": {
+          "in": "body",
+          "description": "Body parameter: final_capture",
+          "value": true
+        },
+        "note_to_payer": {
+          "in": "body",
+          "description": "Body parameter: note_to_payer",
+          "value": "If the ordered color is not available, we will substitute with a different color free of charge."
+        },
+        "soft_descriptor": {
+          "in": "body",
+          "description": "Body parameter: soft_descriptor",
+          "value": "Bob's Custom Sweaters"
+        }
+      },
+      "full_text": "Capture authorized payment Payments POST https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/capture Tool to capture authorized payment. Category: Payments. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/authorizations/:authorization_id/capture. Use this tool when the user wants to capture authorized payment or perform payments related operations."
+    },
+    {
+      "tool_id": "payments_show_captured_payment_details",
+      "name": "Show captured payment details",
+      "folder": "Payments",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/payments/captures/:capture_id",
+      "description": "Tool to show captured payment details. Category: Payments. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/captures/:capture_id. Use this tool when the user wants to show captured payment details or perform payments related operations.",
+      "parameters": {},
+      "full_text": "Show captured payment details Payments GET https://api-m.sandbox.paypal.com/v2/payments/captures/:capture_id Tool to show captured payment details. Category: Payments. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/captures/:capture_id. Use this tool when the user wants to show captured payment details or perform payments related operations."
+    },
+    {
+      "tool_id": "payments_refund_captured_payment",
+      "name": "Refund captured payment",
+      "folder": "Payments",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/payments/captures/:capture_id/refund",
+      "description": "Tool to refund captured payment. Category: Payments. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/captures/:capture_id/refund. Use this tool when the user wants to refund captured payment or perform payments related operations.",
+      "parameters": {
+        "amount": {
+          "in": "body",
+          "description": "Body parameter: amount",
+          "value": {
+            "value": "10.00",
+            "currency_code": "USD"
+          }
+        },
+        "invoice_id": {
+          "in": "body",
+          "description": "Body parameter: invoice_id",
+          "value": "{{$timestamp}}"
+        },
+        "note_to_payer": {
+          "in": "body",
+          "description": "Body parameter: note_to_payer",
+          "value": "Defective product"
+        }
+      },
+      "full_text": "Refund captured payment Payments POST https://api-m.sandbox.paypal.com/v2/payments/captures/:capture_id/refund Tool to refund captured payment. Category: Payments. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/captures/:capture_id/refund. Use this tool when the user wants to refund captured payment or perform payments related operations."
+    },
+    {
+      "tool_id": "payments_show_refund_details",
+      "name": "Show refund details",
+      "folder": "Payments",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/payments/refunds/:refund_id",
+      "description": "Tool to show refund details. Category: Payments. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/refunds/:refund_id. Use this tool when the user wants to show refund details or perform payments related operations.",
+      "parameters": {},
+      "full_text": "Show refund details Payments GET https://api-m.sandbox.paypal.com/v2/payments/refunds/:refund_id Tool to show refund details. Category: Payments. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/payments/refunds/:refund_id. Use this tool when the user wants to show refund details or perform payments related operations."
+    },
+    {
+      "tool_id": "invoices_generate_invoice_number",
+      "name": "Generate invoice number",
+      "folder": "Invoices",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/generate-next-invoice-number",
+      "description": "Tool to generate invoice number. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/generate-next-invoice-number. Use this tool when the user wants to generate invoice number or perform invoices related operations.",
+      "parameters": {},
+      "full_text": "Generate invoice number Invoices POST https://api-m.sandbox.paypal.com/v2/invoicing/generate-next-invoice-number Tool to generate invoice number. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/generate-next-invoice-number. Use this tool when the user wants to generate invoice number or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_create_draft_invoice",
+      "name": "Create draft invoice",
+      "folder": "Invoices",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices",
+      "description": "Tool to create draft invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices. Use this tool when the user wants to create draft invoice or perform invoices related operations.",
+      "parameters": {
+        "detail": {
+          "in": "body",
+          "description": "Body parameter: detail",
+          "value": {
+            "invoice_number": "{{draft_invoice_number}}",
+            "invoice_date": "2022-02-04",
+            "payment_term": {
+              "term_type": "NET_10",
+              "due_date": "2022-02-14"
+            },
+            "currency_code": "USD",
+            "reference": "<The reference data. Includes a post office (PO) number.>",
+            "note": "<A note to the invoice recipient. Also appears on the invoice notification email.>",
+            "terms_and_conditions": "<The general terms of the invoice. Can include return or cancellation policy and other terms and conditions.>",
+            "memo": "<A private bookkeeping note for merchant.>"
+          }
+        },
+        "invoicer": {
+          "in": "body",
+          "description": "Body parameter: invoicer",
+          "value": {
+            "name": {
+              "given_name": "David",
+              "surname": "Larusso"
+            },
+            "address": {
+              "address_line_1": "123 Townsend St",
+              "address_line_2": "Floor 6",
+              "admin_area_2": "San Francisco",
+              "admin_area_1": "CA",
+              "postal_code": "94107",
+              "country_code": "US"
+            },
+            "phones": [
+              {
+                "country_code": "001",
+                "national_number": "4085551234",
+                "phone_type": "MOBILE"
+              }
+            ],
+            "website": "www.example.com",
+            "tax_id": "XX-XXXXXXX",
+            "logo_url": "https://example.com/logo.png",
+            "additional_notes": "<Any additional information. Includes business hours.>"
+          }
+        },
+        "primary_recipients": {
+          "in": "body",
+          "description": "Body parameter: primary_recipients",
+          "value": [
+            {
+              "billing_info": {
+                "name": {
+                  "given_name": "Stephanie",
+                  "surname": "Meyers"
+                },
+                "address": {
+                  "address_line_1": "1234 Main Street",
+                  "admin_area_2": "Anytown",
+                  "admin_area_1": "CA",
+                  "postal_code": "98765",
+                  "country_code": "US"
+                },
+                "email_address": "foobuyer@example.com",
+                "phones": [
+                  {
+                    "country_code": "001",
+                    "national_number": "4884551234",
+                    "phone_type": "HOME"
+                  }
+                ],
+                "additional_info_value": "add-info"
+              },
+              "shipping_info": {
+                "name": {
+                  "given_name": "Stephanie",
+                  "surname": "Meyers"
+                },
+                "address": {
+                  "address_line_1": "1234 Main Street",
+                  "admin_area_2": "Anytown",
+                  "admin_area_1": "CA",
+                  "postal_code": "98765",
+                  "country_code": "US"
+                }
+              }
+            }
+          ]
+        },
+        "items": {
+          "in": "body",
+          "description": "Body parameter: items",
+          "value": [
+            {
+              "name": "Yoga Mat",
+              "description": "Elastic mat to practice yoga.",
+              "quantity": "1",
+              "unit_amount": {
+                "currency_code": "USD",
+                "value": "50.00"
+              },
+              "tax": {
+                "name": "Sales Tax",
+                "percent": "7.25"
+              },
+              "discount": {
+                "percent": "5"
+              },
+              "unit_of_measure": "QUANTITY"
+            },
+            {
+              "name": "Yoga t-shirt",
+              "quantity": "1",
+              "unit_amount": {
+                "currency_code": "USD",
+                "value": "10.00"
+              },
+              "tax": {
+                "name": "Sales Tax",
+                "percent": "7.25"
+              },
+              "discount": {
+                "amount": {
+                  "currency_code": "USD",
+                  "value": "5.00"
+                }
+              },
+              "unit_of_measure": "QUANTITY"
+            }
+          ]
+        },
+        "configuration": {
+          "in": "body",
+          "description": "Body parameter: configuration",
+          "value": {
+            "partial_payment": {
+              "allow_partial_payment": true,
+              "minimum_amount_due": {
+                "currency_code": "USD",
+                "value": "20.00"
+              }
+            },
+            "allow_tip": true,
+            "tax_calculated_after_discount": true,
+            "tax_inclusive": false
+          }
+        },
+        "amount": {
+          "in": "body",
+          "description": "Body parameter: amount",
+          "value": {
+            "breakdown": {
+              "custom": {
+                "label": "Packing Charges",
+                "amount": {
+                  "currency_code": "USD",
+                  "value": "10.00"
+                }
+              },
+              "shipping": {
+                "amount": {
+                  "currency_code": "USD",
+                  "value": "10.00"
+                },
+                "tax": {
+                  "name": "Sales Tax",
+                  "percent": "7.25"
+                }
+              },
+              "discount": {
+                "invoice_discount": {
+                  "percent": "5"
+                }
+              }
+            }
+          }
+        }
+      },
+      "full_text": "Create draft invoice Invoices POST https://api-m.sandbox.paypal.com/v2/invoicing/invoices Tool to create draft invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices. Use this tool when the user wants to create draft invoice or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_show_invoice_details",
+      "name": "Show invoice details",
+      "folder": "Invoices",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id",
+      "description": "Tool to show invoice details. Category: Invoices. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id. Use this tool when the user wants to show invoice details or perform invoices related operations.",
+      "parameters": {},
+      "full_text": "Show invoice details Invoices GET https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id Tool to show invoice details. Category: Invoices. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id. Use this tool when the user wants to show invoice details or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_list_invoices",
+      "name": "List invoices",
+      "folder": "Invoices",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices?page=1&page_size=10&total_required=true&fields=amount",
+      "description": "Tool to list invoices. Category: Invoices. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices?page=1&page_size=10&total_required=true&fields=amount. Use this tool when the user wants to list invoices or perform invoices related operations.",
+      "parameters": {
+        "page": {
+          "in": "query",
+          "description": "The page number to be retrieved, for the list of items. So, a combination of `page=1` and `page_size=20` returns the first 20 invoices. A combination of `page=2` and `page_size=20` returns the next 20 invoices.",
+          "value": "1"
+        },
+        "page_size": {
+          "in": "query",
+          "description": "The maximum number of invoices to return in the response.",
+          "value": "10"
+        },
+        "total_required": {
+          "in": "query",
+          "description": "Indicates whether the to show <code>total_pages</code> and <code>total_items</code> in the response.",
+          "value": "true"
+        },
+        "fields": {
+          "in": "query",
+          "description": "A comma-separated list of additional fields to return, if available.",
+          "value": "amount"
+        }
+      },
+      "full_text": "List invoices Invoices GET https://api-m.sandbox.paypal.com/v2/invoicing/invoices?page=1&page_size=10&total_required=true&fields=amount Tool to list invoices. Category: Invoices. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices?page=1&page_size=10&total_required=true&fields=amount. Use this tool when the user wants to list invoices or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_generate_qr_code",
+      "name": "Generate QR code",
+      "folder": "Invoices",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/generate-qr-code",
+      "description": "Tool to generate qr code. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/generate-qr-code. Use this tool when the user wants to generate qr code or perform invoices related operations.",
+      "parameters": {
+        "width": {
+          "in": "body",
+          "description": "Body parameter: width",
+          "value": 500
+        },
+        "height": {
+          "in": "body",
+          "description": "Body parameter: height",
+          "value": 500
+        },
+        "action": {
+          "in": "body",
+          "description": "Body parameter: action",
+          "value": "pay"
+        }
+      },
+      "full_text": "Generate QR code Invoices POST https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/generate-qr-code Tool to generate qr code. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/generate-qr-code. Use this tool when the user wants to generate qr code or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_fully_update_invoice",
+      "name": "Fully update invoice",
+      "folder": "Invoices",
+      "method": "PUT",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id?send_to_recipient=true&send_to_invoicer=true",
+      "description": "Tool to fully update invoice. Category: Invoices. HTTP Method: PUT. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id?send_to_recipient=true&send_to_invoicer=true. Use this tool when the user wants to fully update invoice or perform invoices related operations.",
+      "parameters": {
+        "send_to_recipient": {
+          "in": "query",
+          "description": "Indicates whether to send the invoice update notification to the recipient.",
+          "value": "true"
+        },
+        "send_to_invoicer": {
+          "in": "query",
+          "description": "Indicates whether to send the invoice update notification to the merchant.",
+          "value": "true"
+        },
+        "id": {
+          "in": "body",
+          "description": "Body parameter: id",
+          "value": "{{invoice_id}}"
+        },
+        "status": {
+          "in": "body",
+          "description": "Body parameter: status",
+          "value": "DRAFT"
+        },
+        "detail": {
+          "in": "body",
+          "description": "Body parameter: detail",
+          "value": {
+            "invoice_number": "{{$timestamp}}",
+            "reference": "deal-reference-update",
+            "invoice_date": "2018-11-12",
+            "currency_code": "USD",
+            "note": "Thank you for your business.",
+            "term": "No refunds after 30 days.",
+            "memo": "This is a long contract",
+            "payment_term": {
+              "term_type": "NET_10",
+              "due_date": "2018-11-22"
+            }
+          }
+        },
+        "invoicer": {
+          "in": "body",
+          "description": "Body parameter: invoicer",
+          "value": {
+            "name": {
+              "given_name": "David",
+              "surname": "Larusso"
+            },
+            "address": {
+              "address_line_1": "1234 First Street",
+              "address_line_2": "337673 Hillside Court",
+              "admin_area_2": "Anytown",
+              "admin_area_1": "CA",
+              "postal_code": "98765",
+              "country_code": "US"
+            },
+            "phones": [
+              {
+                "country_code": "001",
+                "national_number": "4085551234",
+                "phone_type": "MOBILE"
+              }
+            ],
+            "website": "www.test.com",
+            "tax_id": "ABcNkWSfb5ICTt73nD3QON1fnnpgNKBy-Jb5SeuGj185MNNw6g",
+            "logo_url": "https://example.com/logo.PNG",
+            "additional_notes": "2-4"
+          }
+        },
+        "primary_recipients": {
+          "in": "body",
+          "description": "Body parameter: primary_recipients",
+          "value": [
+            {
+              "billing_info": {
+                "name": {
+                  "given_name": "Stephanie",
+                  "surname": "Meyers"
+                },
+                "address": {
+                  "address_line_1": "1234 Main Street",
+                  "admin_area_2": "Anytown",
+                  "admin_area_1": "CA",
+                  "postal_code": "98765",
+                  "country_code": "US"
+                },
+                "email_address": "foobuyer@gmail.com",
+                "phones": [
+                  {
+                    "country_code": "001",
+                    "national_number": "4884551234",
+                    "phone_type": "HOME"
+                  }
+                ],
+                "additional_info_value": "add-info"
+              },
+              "shipping_info": {
+                "name": {
+                  "given_name": "Stephanie",
+                  "surname": "Meyers"
+                },
+                "address": {
+                  "address_line_1": "1234 Main Street",
+                  "admin_area_2": "Anytown",
+                  "admin_area_1": "CA",
+                  "postal_code": "98765",
+                  "country_code": "US"
+                }
+              }
+            }
+          ]
+        },
+        "items": {
+          "in": "body",
+          "description": "Body parameter: items",
+          "value": [
+            {
+              "name": "Yoga Mat",
+              "description": "Elastic mat to practice yoga.",
+              "quantity": "1",
+              "unit_amount": {
+                "currency_code": "USD",
+                "value": "50.00"
+              },
+              "tax": {
+                "name": "Sales Tax",
+                "percent": "7.25",
+                "amount": {
+                  "currency_code": "USD",
+                  "value": "3.27"
+                }
+              },
+              "discount": {
+                "percent": "5",
+                "amount": {
+                  "currency_code": "USD",
+                  "value": "2.5"
+                }
+              },
+              "unit_of_measure": "QUANTITY"
+            },
+            {
+              "name": "Yoga t-shirt",
+              "quantity": "1",
+              "unit_amount": {
+                "currency_code": "USD",
+                "value": "10.00"
+              },
+              "tax": {
+                "name": "Sales Tax",
+                "percent": "7.25",
+                "amount": {
+                  "currency_code": "USD",
+                  "value": "0.34"
+                }
+              },
+              "discount": {
+                "amount": {
+                  "currency_code": "USD",
+                  "value": "5.00"
+                }
+              },
+              "unit_of_measure": "QUANTITY"
+            }
+          ]
+        },
+        "configuration": {
+          "in": "body",
+          "description": "Body parameter: configuration",
+          "value": {
+            "partial_payment": {
+              "allow_partial_payment": true,
+              "minimum_amount_due": {
+                "currency_code": "USD",
+                "value": "20.00"
+              }
+            },
+            "allow_tip": true,
+            "tax_calculated_after_discount": true,
+            "tax_inclusive": false
+          }
+        },
+        "amount": {
+          "in": "body",
+          "description": "Body parameter: amount",
+          "value": {
+            "currency_code": "USD",
+            "value": "74.21",
+            "breakdown": {
+              "item_total": {
+                "currency_code": "USD",
+                "value": "60.00"
+              },
+              "custom": {
+                "label": "Packing Charges",
+                "amount": {
+                  "currency_code": "USD",
+                  "value": "10.00"
+                }
+              },
+              "shipping": {
+                "amount": {
+                  "currency_code": "USD",
+                  "value": "10.00"
+                },
+                "tax": {
+                  "name": "Sales Tax",
+                  "percent": "7.25",
+                  "amount": {
+                    "currency_code": "USD",
+                    "value": "0.73"
+                  }
+                }
+              },
+              "discount": {
+                "item_discount": {
+                  "currency_code": "USD",
+                  "value": "-7.50"
+                },
+                "invoice_discount": {
+                  "percent": "5",
+                  "amount": {
+                    "currency_code": "USD",
+                    "value": "-2.63"
+                  }
+                }
+              },
+              "tax_total": {
+                "currency_code": "USD",
+                "value": "4.34"
+              }
+            }
+          }
+        }
+      },
+      "full_text": "Fully update invoice Invoices PUT https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id?send_to_recipient=true&send_to_invoicer=true Tool to fully update invoice. Category: Invoices. HTTP Method: PUT. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id?send_to_recipient=true&send_to_invoicer=true. Use this tool when the user wants to fully update invoice or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_send_invoice",
+      "name": "Send invoice",
+      "folder": "Invoices",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/send",
+      "description": "Tool to send invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/send. Use this tool when the user wants to send invoice or perform invoices related operations.",
+      "parameters": {
+        "subject": {
+          "in": "body",
+          "description": "Body parameter: subject",
+          "value": "<The subject of the email that is sent as a notification to the recipient.>"
+        },
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "<A note to the payer.>"
+        },
+        "send_to_recipient": {
+          "in": "body",
+          "description": "Body parameter: send_to_recipient",
+          "value": true
+        },
+        "additional_recipients": {
+          "in": "body",
+          "description": "Body parameter: additional_recipients",
+          "value": [
+            "recipient_cc1@example.com",
+            "recipient_cc2@example.com"
+          ]
+        },
+        "send_to_invoicer": {
+          "in": "body",
+          "description": "Body parameter: send_to_invoicer",
+          "value": false
+        }
+      },
+      "full_text": "Send invoice Invoices POST https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/send Tool to send invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/send. Use this tool when the user wants to send invoice or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_send_invoice_reminder",
+      "name": "Send invoice reminder",
+      "folder": "Invoices",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/remind",
+      "description": "Tool to send invoice reminder. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/remind. Use this tool when the user wants to send invoice reminder or perform invoices related operations.",
+      "parameters": {
+        "subject": {
+          "in": "body",
+          "description": "Body parameter: subject",
+          "value": "Reminder: Payment due for the invoice #ABC-123"
+        },
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "Please pay before the due date to avoid incurring late payment charges which will be adjusted in the next bill generated."
+        },
+        "send_to_recipient": {
+          "in": "body",
+          "description": "Body parameter: send_to_recipient",
+          "value": true
+        },
+        "additional_recipients": {
+          "in": "body",
+          "description": "Body parameter: additional_recipients",
+          "value": [
+            "recipient_cc1@example.com",
+            "recipient_cc2@example.com"
+          ]
+        },
+        "send_to_invoicer": {
+          "in": "body",
+          "description": "Body parameter: send_to_invoicer",
+          "value": false
+        }
+      },
+      "full_text": "Send invoice reminder Invoices POST https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/remind Tool to send invoice reminder. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/remind. Use this tool when the user wants to send invoice reminder or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_cancel_sent_invoice",
+      "name": "Cancel sent invoice",
+      "folder": "Invoices",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/cancel",
+      "description": "Tool to cancel sent invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/cancel. Use this tool when the user wants to cancel sent invoice or perform invoices related operations.",
+      "parameters": {
+        "subject": {
+          "in": "body",
+          "description": "Body parameter: subject",
+          "value": "<The subject of the email that is sent as a notification to the recipient.>"
+        },
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "<A note to the payer.>"
+        },
+        "send_to_invoicer": {
+          "in": "body",
+          "description": "Body parameter: send_to_invoicer",
+          "value": true
+        },
+        "send_to_recipient": {
+          "in": "body",
+          "description": "Body parameter: send_to_recipient",
+          "value": true
+        },
+        "additional_recipients": {
+          "in": "body",
+          "description": "Body parameter: additional_recipients",
+          "value": [
+            "user_in_cc@example.com"
+          ]
+        }
+      },
+      "full_text": "Cancel sent invoice Invoices POST https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/cancel Tool to cancel sent invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/cancel. Use this tool when the user wants to cancel sent invoice or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_delete_invoice",
+      "name": "Delete invoice",
+      "folder": "Invoices",
+      "method": "DELETE",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id",
+      "description": "Tool to delete invoice. Category: Invoices. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id. Use this tool when the user wants to delete invoice or perform invoices related operations.",
+      "parameters": {},
+      "full_text": "Delete invoice Invoices DELETE https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id Tool to delete invoice. Category: Invoices. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id. Use this tool when the user wants to delete invoice or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_search_for_invoices",
+      "name": "Search for invoices",
+      "folder": "Invoices",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/search-invoices?page=1&page_size=10&total_required=true",
+      "description": "Tool to search for invoices. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/search-invoices?page=1&page_size=10&total_required=true. Use this tool when the user wants to search for invoices or perform invoices related operations.",
+      "parameters": {
+        "page": {
+          "in": "query",
+          "description": "The page number to be retrieved, for the list of items. So, a combination of `page=1` and `page_size=20` returns the first 20 invoices. A combination of `page=2` and `page_size=20` returns the next 20 invoices.",
+          "value": "1"
+        },
+        "page_size": {
+          "in": "query",
+          "description": "The page size for the search results.",
+          "value": "10"
+        },
+        "total_required": {
+          "in": "query",
+          "description": "Indicates whether the to show <code>total_pages</code> and <code>total_items</code> in the response.",
+          "value": "true"
+        },
+        "recipient_email": {
+          "in": "body",
+          "description": "Body parameter: recipient_email",
+          "value": "foobuyer@gmail.com"
+        },
+        "recipient_first_name": {
+          "in": "body",
+          "description": "Body parameter: recipient_first_name",
+          "value": "Stephanie"
+        },
+        "recipient_last_name": {
+          "in": "body",
+          "description": "Body parameter: recipient_last_name",
+          "value": "Meyers"
+        },
+        "recipient_business_name": {
+          "in": "body",
+          "description": "Body parameter: recipient_business_name",
+          "value": ""
+        },
+        "invoice_number": {
+          "in": "body",
+          "description": "Body parameter: invoice_number",
+          "value": "1644275305"
+        },
+        "status": {
+          "in": "body",
+          "description": "Body parameter: status",
+          "value": [
+            "DRAFT"
+          ]
+        },
+        "reference": {
+          "in": "body",
+          "description": "Body parameter: reference",
+          "value": "298"
+        },
+        "currency_code": {
+          "in": "body",
+          "description": "Body parameter: currency_code",
+          "value": "USD"
+        },
+        "memo": {
+          "in": "body",
+          "description": "Body parameter: memo",
+          "value": "<A private bookkeeping note for merchant.>"
+        },
+        "total_amount_range": {
+          "in": "body",
+          "description": "Body parameter: total_amount_range",
+          "value": {
+            "lower_amount": {
+              "currency_code": "USD",
+              "value": "100.00"
+            },
+            "upper_amount": {
+              "currency_code": "USD",
+              "value": "1000.00"
+            }
+          }
+        },
+        "invoice_date_range": {
+          "in": "body",
+          "description": "Body parameter: invoice_date_range",
+          "value": {
+            "start": "2022-01-01",
+            "end": "2022-02-07"
+          }
+        }
+      },
+      "full_text": "Search for invoices Invoices POST https://api-m.sandbox.paypal.com/v2/invoicing/search-invoices?page=1&page_size=10&total_required=true Tool to search for invoices. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/search-invoices?page=1&page_size=10&total_required=true. Use this tool when the user wants to search for invoices or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_record_payment_for_invoice",
+      "name": "Record payment for invoice",
+      "folder": "Invoices",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/payments",
+      "description": "Tool to record payment for invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/payments. Use this tool when the user wants to record payment for invoice or perform invoices related operations.",
+      "parameters": {
+        "method": {
+          "in": "body",
+          "description": "Body parameter: method",
+          "value": "CASH"
+        },
+        "payment_date": {
+          "in": "body",
+          "description": "Body parameter: payment_date",
+          "value": "2022-02-07"
+        },
+        "amount": {
+          "in": "body",
+          "description": "Body parameter: amount",
+          "value": {
+            "currency_code": "USD",
+            "value": "10.00"
+          }
+        },
+        "type": {
+          "in": "body",
+          "description": "Body parameter: type",
+          "value": "EXTERNAL"
+        },
+        "transaction_type": {
+          "in": "body",
+          "description": "Body parameter: transaction_type",
+          "value": "CAPTURE"
+        },
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "<A note associated with an external cash or check payment.>"
+        },
+        "shipping_info": {
+          "in": "body",
+          "description": "Body parameter: shipping_info",
+          "value": {
+            "name": {
+              "given_name": "Stephanie",
+              "surname": "Meyers"
+            },
+            "address": {
+              "address_line_1": "1234 Main Street",
+              "admin_area_2": "Anytown",
+              "admin_area_1": "CA",
+              "postal_code": "98765",
+              "country_code": "US"
+            }
+          }
+        }
+      },
+      "full_text": "Record payment for invoice Invoices POST https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/payments Tool to record payment for invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/payments. Use this tool when the user wants to record payment for invoice or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_delete_external_payment",
+      "name": "Delete external payment",
+      "folder": "Invoices",
+      "method": "DELETE",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/payments/:transaction_id",
+      "description": "Tool to delete external payment. Category: Invoices. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/payments/:transaction_id. Use this tool when the user wants to delete external payment or perform invoices related operations.",
+      "parameters": {},
+      "full_text": "Delete external payment Invoices DELETE https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/payments/:transaction_id Tool to delete external payment. Category: Invoices. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/payments/:transaction_id. Use this tool when the user wants to delete external payment or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_record_refund_for_invoice",
+      "name": "Record refund for invoice",
+      "folder": "Invoices",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/refunds",
+      "description": "Tool to record refund for invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/refunds. Use this tool when the user wants to record refund for invoice or perform invoices related operations.",
+      "parameters": {
+        "method": {
+          "in": "body",
+          "description": "Body parameter: method",
+          "value": "BANK_TRANSFER"
+        },
+        "refund_date": {
+          "in": "body",
+          "description": "Body parameter: refund_date",
+          "value": "2021-02-07"
+        },
+        "amount": {
+          "in": "body",
+          "description": "Body parameter: amount",
+          "value": {
+            "currency_code": "USD",
+            "value": "5.00"
+          }
+        }
+      },
+      "full_text": "Record refund for invoice Invoices POST https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/refunds Tool to record refund for invoice. Category: Invoices. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/refunds. Use this tool when the user wants to record refund for invoice or perform invoices related operations."
+    },
+    {
+      "tool_id": "invoices_delete_external_refund",
+      "name": "Delete external refund",
+      "folder": "Invoices",
+      "method": "DELETE",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/refunds/:transaction_id",
+      "description": "Tool to delete external refund. Category: Invoices. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/refunds/:transaction_id. Use this tool when the user wants to delete external refund or perform invoices related operations.",
+      "parameters": {},
+      "full_text": "Delete external refund Invoices DELETE https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/refunds/:transaction_id Tool to delete external refund. Category: Invoices. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/invoices/:invoice_id/refunds/:transaction_id. Use this tool when the user wants to delete external refund or perform invoices related operations."
+    },
+    {
+      "tool_id": "templates_list_templates",
+      "name": "List templates",
+      "folder": "Templates",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/templates?fields=all&page=1&page_size=10",
+      "description": "Tool to list templates. Category: Templates. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates?fields=all&page=1&page_size=10. Use this tool when the user wants to list templates or perform templates related operations.",
+      "parameters": {
+        "fields": {
+          "in": "query",
+          "description": "The fields to return in the response. Value is `all` or `none`. To return only the template name, ID, and default attributes, specify `none`.",
+          "value": "all"
+        },
+        "page": {
+          "in": "query",
+          "description": "The page number to be retrieved, for the list of templates. So, a combination of `page=1` and `page_size=20` returns the first 20 templates. A combination of `page=2` and `page_size=20` returns the next 20 templates.",
+          "value": "1"
+        },
+        "page_size": {
+          "in": "query",
+          "description": "The maximum number of templates to return in the response.",
+          "value": "10"
+        }
+      },
+      "full_text": "List templates Templates GET https://api-m.sandbox.paypal.com/v2/invoicing/templates?fields=all&page=1&page_size=10 Tool to list templates. Category: Templates. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates?fields=all&page=1&page_size=10. Use this tool when the user wants to list templates or perform templates related operations."
+    },
+    {
+      "tool_id": "templates_create_template",
+      "name": "Create template",
+      "folder": "Templates",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/templates",
+      "description": "Tool to create template. Category: Templates. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates. Use this tool when the user wants to create template or perform templates related operations.",
+      "parameters": {
+        "name": {
+          "in": "body",
+          "description": "Body parameter: name",
+          "value": "template_{{$timestamp}}"
+        },
+        "default_template": {
+          "in": "body",
+          "description": "Body parameter: default_template",
+          "value": true
+        },
+        "template_info": {
+          "in": "body",
+          "description": "Body parameter: template_info",
+          "value": {
+            "configuration": {
+              "tax_calculated_after_discount": true,
+              "tax_inclusive": false,
+              "allow_tip": true,
+              "partial_payment": {
+                "allow_partial_payment": true,
+                "minimum_amount_due": {
+                  "currency_code": "USD",
+                  "value": "20.00"
+                }
+              }
+            },
+            "detail": {
+              "reference": "deal-ref",
+              "note": "Thank you for your business.",
+              "currency_code": "USD",
+              "terms_and_conditions": "No refunds after 30 days.",
+              "memo": "This is a long contract",
+              "attachments": [
+                {
+                  "id": "Screen Shot 2018-11-23 at 16.45.01.png",
+                  "reference_url": "https://api-m.paypal.com/invoice/payerView/attachments/RkG9ggQbd4Mwm1tYdcF6uuixfFTFq32bBdbE1VbtQLdKSoS2ZOYpfjw9gPp7eTrZmVaFaDWzixHXm-OXWHbmigHigHzURDxJs8IIKqcqP8jawnBEZcraEAPVMULxf5iTyOSpAUc2ugW0PWdwDbM6mg-guFAUyj3Z98H7htWNjQY95jb9heOlcSXUe.sbDUR9smAszzzJoA1NXT6rEEegwQ&version=1&sig=JNODB0xEayW8txMQm6ZsIwDnd4eh3hd6ijiRLi4ipHE"
+                }
+              ],
+              "payment_term": {
+                "term_type": "NET_10"
+              }
+            },
+            "invoicer": {
+              "name": {
+                "given_name": "David",
+                "surname": "Larusso"
+              },
+              "address": {
+                "address_line_1": "1234 First Street",
+                "address_line_2": "337673 Hillside Court",
+                "admin_area_2": "Anytown",
+                "admin_area_1": "CA",
+                "postal_code": "98765",
+                "country_code": "US"
+              },
+              "email_address": "merchant@example.com",
+              "phones": [
+                {
+                  "country_code": "001",
+                  "national_number": "4085551234",
+                  "phone_type": "MOBILE"
+                }
+              ],
+              "website": "www.test.com",
+              "tax_id": "ABcNkWSfb5ICTt73nD3QON1fnnpgNKBy-Jb5SeuGj185MNNw6g",
+              "logo_url": "https://example.com/logo.PNG",
+              "additional_notes": "2-4"
+            },
+            "primary_recipients": [
+              {
+                "billing_info": {
+                  "name": {
+                    "given_name": "Stephanie",
+                    "surname": "Meyers"
+                  },
+                  "address": {
+                    "address_line_1": "1234 Main Street",
+                    "admin_area_2": "Anytown",
+                    "admin_area_1": "CA",
+                    "postal_code": "98765",
+                    "country_code": "US"
+                  },
+                  "email_address": "bill-me@example.com",
+                  "phones": [
+                    {
+                      "country_code": "001",
+                      "national_number": "4884551234",
+                      "phone_type": "MOBILE"
+                    }
+                  ],
+                  "additional_info": "add-info"
+                },
+                "shipping_info": {
+                  "name": {
+                    "given_name": "Stephanie",
+                    "surname": "Meyers"
+                  },
+                  "address": {
+                    "address_line_1": "1234 Main Street",
+                    "admin_area_2": "Anytown",
+                    "admin_area_1": "CA",
+                    "postal_code": "98765",
+                    "country_code": "US"
+                  }
+                }
+              }
+            ],
+            "additional_recipients": [
+              "inform-me@example.com"
+            ],
+            "items": [
+              {
+                "name": "Yoga Mat",
+                "description": "new watch",
+                "quantity": "1",
+                "unit_amount": {
+                  "currency_code": "USD",
+                  "value": "50.00"
+                },
+                "tax": {
+                  "name": "Sales Tax",
+                  "percent": "7.25"
+                },
+                "discount": {
+                  "percent": "5"
+                },
+                "unit_of_measure": "QUANTITY"
+              },
+              {
+                "name": "Yoga T Shirt",
+                "quantity": "1",
+                "unit_amount": {
+                  "currency_code": "USD",
+                  "value": "10.00"
+                },
+                "tax": {
+                  "name": "Sales Tax",
+                  "percent": "7.25"
+                },
+                "discount": {
+                  "amount": {
+                    "currency_code": "USD",
+                    "value": "5.00"
+                  }
+                },
+                "unit_of_measure": "QUANTITY"
+              }
+            ],
+            "amount": {
+              "currency_code": "USD",
+              "breakdown": {
+                "custom": {
+                  "label": "Packing Charges",
+                  "amount": {
+                    "currency_code": "USD",
+                    "value": "10.00"
+                  }
+                },
+                "shipping": {
+                  "amount": {
+                    "currency_code": "USD",
+                    "value": "10.00"
+                  },
+                  "tax": {
+                    "name": "Sales Tax",
+                    "percent": "7.25"
+                  }
+                },
+                "discount": {
+                  "invoice_discount": {
+                    "percent": "5"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "settings": {
+          "in": "body",
+          "description": "Body parameter: settings",
+          "value": {
+            "template_item_settings": [
+              {
+                "field_name": "items.date",
+                "display_preference": {
+                  "hidden": true
+                }
+              },
+              {
+                "field_name": "items.discount",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "items.tax",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "items.description",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "items.quantity",
+                "display_preference": {
+                  "hidden": true
+                }
+              }
+            ],
+            "template_subtotal_settings": [
+              {
+                "field_name": "custom",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "discount",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "shipping",
+                "display_preference": {
+                  "hidden": false
+                }
+              }
+            ]
+          }
+        },
+        "unit_of_measure": {
+          "in": "body",
+          "description": "Body parameter: unit_of_measure",
+          "value": "QUANTITY"
+        },
+        "standard_template": {
+          "in": "body",
+          "description": "Body parameter: standard_template",
+          "value": false
+        }
+      },
+      "full_text": "Create template Templates POST https://api-m.sandbox.paypal.com/v2/invoicing/templates Tool to create template. Category: Templates. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates. Use this tool when the user wants to create template or perform templates related operations."
+    },
+    {
+      "tool_id": "templates_show_template_details",
+      "name": "Show template details",
+      "folder": "Templates",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id",
+      "description": "Tool to show template details. Category: Templates. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id. Use this tool when the user wants to show template details or perform templates related operations.",
+      "parameters": {},
+      "full_text": "Show template details Templates GET https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id Tool to show template details. Category: Templates. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id. Use this tool when the user wants to show template details or perform templates related operations."
+    },
+    {
+      "tool_id": "templates_fully_update_template",
+      "name": "Fully update template",
+      "folder": "Templates",
+      "method": "PUT",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id",
+      "description": "Tool to fully update template. Category: Templates. HTTP Method: PUT. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id. Use this tool when the user wants to fully update template or perform templates related operations.",
+      "parameters": {
+        "name": {
+          "in": "body",
+          "description": "Body parameter: name",
+          "value": "Meta Rebranded"
+        },
+        "default_template": {
+          "in": "body",
+          "description": "Body parameter: default_template",
+          "value": true
+        },
+        "template_info": {
+          "in": "body",
+          "description": "Body parameter: template_info",
+          "value": {
+            "configuration": {
+              "tax_calculated_after_discount": true,
+              "tax_inclusive": false,
+              "allow_tip": true,
+              "partial_payment": {
+                "allow_partial_payment": true,
+                "minimum_amount_due": {
+                  "currency_code": "USD",
+                  "value": "20.00"
+                }
+              }
+            },
+            "detail": {
+              "reference": "deal-reference-value",
+              "note": "Thank you for your business.",
+              "currency_code": "USD",
+              "terms_and_conditions": "No refunds after 30 days.",
+              "memo": "This is a long contract",
+              "attachments": [
+                {
+                  "id": "Screen Shot 2018-11-23 at 16.45.01.png",
+                  "reference_url": "https://example.com/invoice/payerView/attachments/RkG9ggQbd4Mwm1tYdcF6uuixfFTFq32bBdbE1VbtQLdKSoS2ZOYpfjw9gPp7eTrZmVaFaDWzixHXm-OXWHbmigHigHzURDxJs8IIKqcqP8jawnBEZcraEAPVMULxf5iTyOSpAUc2ugW0PWdwDbM6mg-guFAUyj3Z98H7htWNjQY95jb9heOlcSXUe.sbDUR9smAszzzJoA1NXT6rEEegwQ&version=1&sig=JNODB0xEayW8txMQm6ZsIwDnd4eh3hd6ijiRLi4ipHE"
+                }
+              ],
+              "payment_term": {
+                "term_type": "NET_10"
+              }
+            },
+            "invoicer": {
+              "name": {
+                "given_name": "David",
+                "surname": "Larusso"
+              },
+              "address": {
+                "address_line_1": "1234 First Street",
+                "address_line_2": "337673 Hillside Court",
+                "admin_area_2": "Anytown",
+                "admin_area_1": "CA",
+                "postal_code": "98765",
+                "country_code": "US"
+              },
+              "email_address": "merchant@example.com",
+              "phones": [
+                {
+                  "country_code": "001",
+                  "national_number": "4085551234",
+                  "phone_type": "MOBILE"
+                }
+              ],
+              "website": "www.test.com",
+              "tax_id": "ABcNkWSfb5ICTt73nD3QON1fnnpgNKBy-Jb5SeuGj185MNNw6g",
+              "logo_url": "https://example.com/logo.PNG",
+              "additional_notes": "2-4"
+            },
+            "primary_recipients": [
+              {
+                "billing_info": {
+                  "name": {
+                    "given_name": "Stephanie",
+                    "surname": "Meyers"
+                  },
+                  "address": {
+                    "address_line_1": "1234 Main Street",
+                    "admin_area_2": "Anytown",
+                    "admin_area_1": "CA",
+                    "postal_code": "98765",
+                    "country_code": "US"
+                  },
+                  "email_address": "bill-me@example.com",
+                  "phones": [
+                    {
+                      "country_code": "001",
+                      "national_number": "4884551234",
+                      "phone_type": "MOBILE"
+                    }
+                  ],
+                  "additional_info": "add-info"
+                },
+                "shipping_info": {
+                  "name": {
+                    "given_name": "Stephanie",
+                    "surname": "Meyers"
+                  },
+                  "address": {
+                    "address_line_1": "1234 Main Street",
+                    "admin_area_2": "Anytown",
+                    "admin_area_1": "CA",
+                    "postal_code": "98765",
+                    "country_code": "US"
+                  }
+                }
+              }
+            ],
+            "additional_recipients": [
+              "inform-me@example.com"
+            ],
+            "items": [
+              {
+                "name": "Yoga Mat",
+                "description": "new watch",
+                "quantity": "1",
+                "unit_amount": {
+                  "currency_code": "USD",
+                  "value": "50.00"
+                },
+                "tax": {
+                  "name": "Sales Tax",
+                  "percent": "7.25"
+                },
+                "discount": {
+                  "percent": "5"
+                },
+                "unit_of_measure": "QUANTITY"
+              },
+              {
+                "name": "Yoga T Shirt",
+                "quantity": "1",
+                "unit_amount": {
+                  "currency_code": "USD",
+                  "value": "10.00"
+                },
+                "tax": {
+                  "name": "Sales Tax",
+                  "percent": "7.25"
+                },
+                "discount": {
+                  "amount": {
+                    "currency_code": "USD",
+                    "value": "5.00"
+                  }
+                },
+                "unit_of_measure": "QUANTITY"
+              }
+            ],
+            "amount": {
+              "currency_code": "USD",
+              "breakdown": {
+                "custom": {
+                  "label": "Packing Charges",
+                  "amount": {
+                    "currency_code": "USD",
+                    "value": "10.00"
+                  }
+                },
+                "shipping": {
+                  "amount": {
+                    "currency_code": "USD",
+                    "value": "10.00"
+                  },
+                  "tax": {
+                    "name": "Sales Tax",
+                    "percent": "7.25"
+                  }
+                },
+                "discount": {
+                  "invoice_discount": {
+                    "percent": "5"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "settings": {
+          "in": "body",
+          "description": "Body parameter: settings",
+          "value": {
+            "template_item_settings": [
+              {
+                "field_name": "items.date",
+                "display_preference": {
+                  "hidden": true
+                }
+              },
+              {
+                "field_name": "items.discount",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "items.tax",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "items.description",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "items.quantity",
+                "display_preference": {
+                  "hidden": true
+                }
+              }
+            ],
+            "template_subtotal_settings": [
+              {
+                "field_name": "custom",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "discount",
+                "display_preference": {
+                  "hidden": false
+                }
+              },
+              {
+                "field_name": "shipping",
+                "display_preference": {
+                  "hidden": false
+                }
+              }
+            ]
+          }
+        },
+        "unit_of_measure": {
+          "in": "body",
+          "description": "Body parameter: unit_of_measure",
+          "value": "QUANTITY"
+        },
+        "standard_template": {
+          "in": "body",
+          "description": "Body parameter: standard_template",
+          "value": false
+        }
+      },
+      "full_text": "Fully update template Templates PUT https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id Tool to fully update template. Category: Templates. HTTP Method: PUT. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id. Use this tool when the user wants to fully update template or perform templates related operations."
+    },
+    {
+      "tool_id": "templates_delete_template",
+      "name": "Delete template",
+      "folder": "Templates",
+      "method": "DELETE",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id",
+      "description": "Tool to delete template. Category: Templates. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id. Use this tool when the user wants to delete template or perform templates related operations.",
+      "parameters": {},
+      "full_text": "Delete template Templates DELETE https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id Tool to delete template. Category: Templates. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v2/invoicing/templates/:template_id. Use this tool when the user wants to delete template or perform templates related operations."
+    },
+    {
+      "tool_id": "catalog_products_create_product",
+      "name": "Create product",
+      "folder": "Catalog Products",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/catalogs/products",
+      "description": "Tool to create product. Category: Catalog Products. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products. Use this tool when the user wants to create product or perform catalog products related operations.",
+      "parameters": {
+        "name": {
+          "in": "body",
+          "description": "Body parameter: name",
+          "value": "T-Shirt"
+        },
+        "type": {
+          "in": "body",
+          "description": "Body parameter: type",
+          "value": "PHYSICAL"
+        },
+        "id": {
+          "in": "body",
+          "description": "Body parameter: id",
+          "value": "{{$timestamp}}"
+        },
+        "description": {
+          "in": "body",
+          "description": "Body parameter: description",
+          "value": "Cotton XL"
+        },
+        "category": {
+          "in": "body",
+          "description": "Body parameter: category",
+          "value": "CLOTHING"
+        },
+        "image_url": {
+          "in": "body",
+          "description": "Body parameter: image_url",
+          "value": "https://example.com/gallary/images/{{$timestamp}}.jpg"
+        },
+        "home_url": {
+          "in": "body",
+          "description": "Body parameter: home_url",
+          "value": "https://example.com/catalog/{{$timestamp}}.jpg"
+        }
+      },
+      "full_text": "Create product Catalog Products POST https://api-m.sandbox.paypal.com/v1/catalogs/products Tool to create product. Category: Catalog Products. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products. Use this tool when the user wants to create product or perform catalog products related operations."
+    },
+    {
+      "tool_id": "catalog_products_list_products",
+      "name": "List products",
+      "folder": "Catalog Products",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/catalogs/products?page_size=10&page=1&total_required=true",
+      "description": "Tool to list products. Category: Catalog Products. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products?page_size=10&page=1&total_required=true. Use this tool when the user wants to list products or perform catalog products related operations.",
+      "parameters": {
+        "page_size": {
+          "in": "query",
+          "description": "The number of items to return in the response.",
+          "value": "10"
+        },
+        "page": {
+          "in": "query",
+          "description": "A non-zero integer which is the start index of the entire list of items that are returned in the response. So, the combination of `page=1` and `page_size=20` returns the first 20 items. The combination of `page=2` and `page_size=20` returns the next 20 items.",
+          "value": "1"
+        },
+        "total_required": {
+          "in": "query",
+          "description": "Indicates whether to show the total items and total pages in the response.",
+          "value": "true"
+        }
+      },
+      "full_text": "List products Catalog Products GET https://api-m.sandbox.paypal.com/v1/catalogs/products?page_size=10&page=1&total_required=true Tool to list products. Category: Catalog Products. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products?page_size=10&page=1&total_required=true. Use this tool when the user wants to list products or perform catalog products related operations."
+    },
+    {
+      "tool_id": "catalog_products_show_product_details",
+      "name": "Show product details",
+      "folder": "Catalog Products",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/catalogs/products/:product_id",
+      "description": "Tool to show product details. Category: Catalog Products. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products/:product_id. Use this tool when the user wants to show product details or perform catalog products related operations.",
+      "parameters": {},
+      "full_text": "Show product details Catalog Products GET https://api-m.sandbox.paypal.com/v1/catalogs/products/:product_id Tool to show product details. Category: Catalog Products. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products/:product_id. Use this tool when the user wants to show product details or perform catalog products related operations."
+    },
+    {
+      "tool_id": "catalog_products_update_product",
+      "name": "Update product",
+      "folder": "Catalog Products",
+      "method": "PATCH",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/catalogs/products/:product_id",
+      "description": "Tool to update product. Category: Catalog Products. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products/:product_id. Use this tool when the user wants to update product or perform catalog products related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/description\",\n        \"value\": \"Blue M\"\n    }\n]"
+        }
+      },
+      "full_text": "Update product Catalog Products PATCH https://api-m.sandbox.paypal.com/v1/catalogs/products/:product_id Tool to update product. Category: Catalog Products. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products/:product_id. Use this tool when the user wants to update product or perform catalog products related operations."
+    },
+    {
+      "tool_id": "plans_create_plan",
+      "name": "Create plan",
+      "folder": "Plans",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/plans",
+      "description": "Tool to create plan. Category: Plans. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans. Use this tool when the user wants to create plan or perform plans related operations.",
+      "parameters": {
+        "product_id": {
+          "in": "body",
+          "description": "Body parameter: product_id",
+          "value": "{{product_id}}"
+        },
+        "name": {
+          "in": "body",
+          "description": "Body parameter: name",
+          "value": "Fresh Clean Tees Plan"
+        },
+        "description": {
+          "in": "body",
+          "description": "Body parameter: description",
+          "value": "Each shirt they send out to subscribers is designed with lots of attention to detail"
+        },
+        "status": {
+          "in": "body",
+          "description": "Body parameter: status",
+          "value": "ACTIVE"
+        },
+        "billing_cycles": {
+          "in": "body",
+          "description": "Body parameter: billing_cycles",
+          "value": [
+            {
+              "frequency": {
+                "interval_unit": "MONTH",
+                "interval_count": 1
+              },
+              "tenure_type": "TRIAL",
+              "sequence": 1,
+              "total_cycles": 1,
+              "pricing_scheme": {
+                "fixed_price": {
+                  "value": "1",
+                  "currency_code": "USD"
+                }
+              }
+            },
+            {
+              "frequency": {
+                "interval_unit": "MONTH",
+                "interval_count": 1
+              },
+              "tenure_type": "REGULAR",
+              "sequence": 2,
+              "total_cycles": 12,
+              "pricing_scheme": {
+                "fixed_price": {
+                  "value": "44",
+                  "currency_code": "USD"
+                }
+              }
+            }
+          ]
+        },
+        "payment_preferences": {
+          "in": "body",
+          "description": "Body parameter: payment_preferences",
+          "value": {
+            "auto_bill_outstanding": true,
+            "setup_fee": {
+              "value": "10",
+              "currency_code": "USD"
+            },
+            "setup_fee_failure_action": "CONTINUE",
+            "payment_failure_threshold": 3
+          }
+        },
+        "taxes": {
+          "in": "body",
+          "description": "Body parameter: taxes",
+          "value": {
+            "percentage": "10",
+            "inclusive": false
+          }
+        }
+      },
+      "full_text": "Create plan Plans POST https://api-m.sandbox.paypal.com/v1/billing/plans Tool to create plan. Category: Plans. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans. Use this tool when the user wants to create plan or perform plans related operations."
+    },
+    {
+      "tool_id": "plans_list_plans",
+      "name": "List plans",
+      "folder": "Plans",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/plans?page_size=10&page=1&total_required=true",
+      "description": "Tool to list plans. Category: Plans. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans?page_size=10&page=1&total_required=true. Use this tool when the user wants to list plans or perform plans related operations.",
+      "parameters": {
+        "page_size": {
+          "in": "query",
+          "description": "The number of items to return in the response.",
+          "value": "10"
+        },
+        "page": {
+          "in": "query",
+          "description": "A non-zero integer which is the start index of the entire list of items to return in the response. The combination of `page=1` and `page_size=20` returns the first 20 items. The combination of `page=2` and `page_size=20` returns the next 20 items.",
+          "value": "1"
+        },
+        "total_required": {
+          "in": "query",
+          "description": "Indicates whether to show the total count in the response.",
+          "value": "true"
+        }
+      },
+      "full_text": "List plans Plans GET https://api-m.sandbox.paypal.com/v1/billing/plans?page_size=10&page=1&total_required=true Tool to list plans. Category: Plans. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans?page_size=10&page=1&total_required=true. Use this tool when the user wants to list plans or perform plans related operations."
+    },
+    {
+      "tool_id": "plans_show_plan_details",
+      "name": "Show plan details",
+      "folder": "Plans",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id",
+      "description": "Tool to show plan details. Category: Plans. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id. Use this tool when the user wants to show plan details or perform plans related operations.",
+      "parameters": {},
+      "full_text": "Show plan details Plans GET https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id Tool to show plan details. Category: Plans. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id. Use this tool when the user wants to show plan details or perform plans related operations."
+    },
+    {
+      "tool_id": "plans_update_plan",
+      "name": "Update plan",
+      "folder": "Plans",
+      "method": "PATCH",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id",
+      "description": "Tool to update plan. Category: Plans. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id. Use this tool when the user wants to update plan or perform plans related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/payment_preferences/payment_failure_threshold\",\n        \"value\": 7\n    }\n]"
+        }
+      },
+      "full_text": "Update plan Plans PATCH https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id Tool to update plan. Category: Plans. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id. Use this tool when the user wants to update plan or perform plans related operations."
+    },
+    {
+      "tool_id": "plans_deactivate_plan",
+      "name": "Deactivate plan",
+      "folder": "Plans",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/deactivate",
+      "description": "Tool to deactivate plan. Category: Plans. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/deactivate. Use this tool when the user wants to deactivate plan or perform plans related operations.",
+      "parameters": {},
+      "full_text": "Deactivate plan Plans POST https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/deactivate Tool to deactivate plan. Category: Plans. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/deactivate. Use this tool when the user wants to deactivate plan or perform plans related operations."
+    },
+    {
+      "tool_id": "plans_activate_plan",
+      "name": "Activate plan",
+      "folder": "Plans",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/activate",
+      "description": "Tool to activate plan. Category: Plans. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/activate. Use this tool when the user wants to activate plan or perform plans related operations.",
+      "parameters": {},
+      "full_text": "Activate plan Plans POST https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/activate Tool to activate plan. Category: Plans. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/activate. Use this tool when the user wants to activate plan or perform plans related operations."
+    },
+    {
+      "tool_id": "plans_update_pricing",
+      "name": "Update pricing",
+      "folder": "Plans",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/update-pricing-schemes",
+      "description": "Tool to update pricing. Category: Plans. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/update-pricing-schemes. Use this tool when the user wants to update pricing or perform plans related operations.",
+      "parameters": {
+        "pricing_schemes": {
+          "in": "body",
+          "description": "Body parameter: pricing_schemes",
+          "value": [
+            {
+              "billing_cycle_sequence": 1,
+              "pricing_scheme": {
+                "fixed_price": {
+                  "value": "10",
+                  "currency_code": "USD"
+                },
+                "roll_out_strategy": {
+                  "effective_time": "2022-11-01T00:00:00Z",
+                  "process_change_from": "NEXT_PAYMENT"
+                }
+              }
+            },
+            {
+              "billing_cycle_sequence": 2,
+              "pricing_scheme": {
+                "fixed_price": {
+                  "value": "50",
+                  "currency_code": "USD"
+                },
+                "roll_out_strategy": {
+                  "effective_time": "2022-11-01T00:00:00Z",
+                  "process_change_from": "NEXT_PAYMENT"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "full_text": "Update pricing Plans POST https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/update-pricing-schemes Tool to update pricing. Category: Plans. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/plans/:billing_plan_id/update-pricing-schemes. Use this tool when the user wants to update pricing or perform plans related operations."
+    },
+    {
+      "tool_id": "subscriptions_create_subscription",
+      "name": "Create subscription",
+      "folder": "Subscriptions",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions",
+      "description": "Tool to create subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions. Use this tool when the user wants to create subscription or perform subscriptions related operations.",
+      "parameters": {
+        "plan_id": {
+          "in": "body",
+          "description": "Body parameter: plan_id",
+          "value": "{{billing_plan_id}}"
+        },
+        "start_time": {
+          "in": "body",
+          "description": "Body parameter: start_time",
+          "value": "{{tomorrow}}"
+        },
+        "shipping_amount": {
+          "in": "body",
+          "description": "Body parameter: shipping_amount",
+          "value": {
+            "currency_code": "USD",
+            "value": "10.00"
+          }
+        },
+        "subscriber": {
+          "in": "body",
+          "description": "Body parameter: subscriber",
+          "value": {
+            "name": {
+              "given_name": "FooBuyer",
+              "surname": "Jones"
+            },
+            "email_address": "foobuyer@example.com",
+            "shipping_address": {
+              "name": {
+                "full_name": "John Doe"
+              },
+              "address": {
+                "address_line_1": "2211 N First Street",
+                "address_line_2": "Building 17",
+                "admin_area_2": "San Jose",
+                "admin_area_1": "CA",
+                "postal_code": "95131",
+                "country_code": "US"
+              }
+            }
+          }
+        },
+        "application_context": {
+          "in": "body",
+          "description": "Body parameter: application_context",
+          "value": {
+            "brand_name": "Example Inc",
+            "locale": "en-US",
+            "shipping_preference": "SET_PROVIDED_ADDRESS",
+            "user_action": "SUBSCRIBE_NOW",
+            "payment_method": {
+              "payer_selected": "PAYPAL",
+              "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
+            },
+            "return_url": "https://example.com/return",
+            "cancel_url": "https://example.com/cancel"
+          }
+        }
+      },
+      "full_text": "Create subscription Subscriptions POST https://api-m.sandbox.paypal.com/v1/billing/subscriptions Tool to create subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions. Use this tool when the user wants to create subscription or perform subscriptions related operations."
+    },
+    {
+      "tool_id": "subscriptions_show_subscription_details",
+      "name": "Show subscription details",
+      "folder": "Subscriptions",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id",
+      "description": "Tool to show subscription details. Category: Subscriptions. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id. Use this tool when the user wants to show subscription details or perform subscriptions related operations.",
+      "parameters": {},
+      "full_text": "Show subscription details Subscriptions GET https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id Tool to show subscription details. Category: Subscriptions. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id. Use this tool when the user wants to show subscription details or perform subscriptions related operations."
+    },
+    {
+      "tool_id": "subscriptions_update_subscription",
+      "name": "Update subscription",
+      "folder": "Subscriptions",
+      "method": "PATCH",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id",
+      "description": "Tool to update subscription. Category: Subscriptions. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id. Use this tool when the user wants to update subscription or perform subscriptions related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/subscriber/shipping_address\",\n        \"value\": {\n            \"name\": {\n                \"full_name\": \"John Doe\"\n            },\n            \"address\": {\n                \"address_line_1\": \"2211 N First Street\",\n                \"address_line_2\": \"Building 17\",\n                \"admin_area_2\": \"San Jose\",\n                \"admin_area_1\": \"CA\",\n                \"postal_code\": \"95131\",\n                \"country_code\": \"US\"\n            }\n        }\n    },\n  "
+        }
+      },
+      "full_text": "Update subscription Subscriptions PATCH https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id Tool to update subscription. Category: Subscriptions. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id. Use this tool when the user wants to update subscription or perform subscriptions related operations."
+    },
+    {
+      "tool_id": "subscriptions_revise_plan_or_quantity_of_subscription",
+      "name": "Revise plan or quantity of subscription",
+      "folder": "Subscriptions",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/revise",
+      "description": "Tool to revise plan or quantity of subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/revise. Use this tool when the user wants to revise plan or quantity of subscription or perform subscriptions related operations.",
+      "parameters": {
+        "plan_id": {
+          "in": "body",
+          "description": "Body parameter: plan_id",
+          "value": "{{billing_plan_id}}"
+        },
+        "shipping_amount": {
+          "in": "body",
+          "description": "Body parameter: shipping_amount",
+          "value": {
+            "currency_code": "USD",
+            "value": "10.00"
+          }
+        },
+        "shipping_address": {
+          "in": "body",
+          "description": "Body parameter: shipping_address",
+          "value": {
+            "name": {
+              "full_name": "John Doe"
+            },
+            "address": {
+              "address_line_1": "2211 N First Street",
+              "address_line_2": "Building 17",
+              "admin_area_2": "San Jose",
+              "admin_area_1": "CA",
+              "postal_code": "95131",
+              "country_code": "US"
+            }
+          }
+        },
+        "application_context": {
+          "in": "body",
+          "description": "Body parameter: application_context",
+          "value": {
+            "brand_name": "walmart",
+            "locale": "en-US",
+            "shipping_preference": "SET_PROVIDED_ADDRESS",
+            "payment_method": {
+              "payer_selected": "PAYPAL",
+              "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
+            },
+            "return_url": "https://example.com/returnUrl",
+            "cancel_url": "https://example.com/cancelUrl"
+          }
+        }
+      },
+      "full_text": "Revise plan or quantity of subscription Subscriptions POST https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/revise Tool to revise plan or quantity of subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/revise. Use this tool when the user wants to revise plan or quantity of subscription or perform subscriptions related operations."
+    },
+    {
+      "tool_id": "subscriptions_suspend_subscription",
+      "name": "Suspend subscription",
+      "folder": "Subscriptions",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/suspend",
+      "description": "Tool to suspend subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/suspend. Use this tool when the user wants to suspend subscription or perform subscriptions related operations.",
+      "parameters": {
+        "reason": {
+          "in": "body",
+          "description": "Body parameter: reason",
+          "value": "Item out of stock"
+        }
+      },
+      "full_text": "Suspend subscription Subscriptions POST https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/suspend Tool to suspend subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/suspend. Use this tool when the user wants to suspend subscription or perform subscriptions related operations."
+    },
+    {
+      "tool_id": "subscriptions_activate_subscription",
+      "name": "Activate subscription",
+      "folder": "Subscriptions",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/activate",
+      "description": "Tool to activate subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/activate. Use this tool when the user wants to activate subscription or perform subscriptions related operations.",
+      "parameters": {
+        "reason": {
+          "in": "body",
+          "description": "Body parameter: reason",
+          "value": "Items are back in stock"
+        }
+      },
+      "full_text": "Activate subscription Subscriptions POST https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/activate Tool to activate subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/activate. Use this tool when the user wants to activate subscription or perform subscriptions related operations."
+    },
+    {
+      "tool_id": "subscriptions_cancel_subscription",
+      "name": "Cancel subscription",
+      "folder": "Subscriptions",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/cancel",
+      "description": "Tool to cancel subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/cancel. Use this tool when the user wants to cancel subscription or perform subscriptions related operations.",
+      "parameters": {
+        "reason": {
+          "in": "body",
+          "description": "Body parameter: reason",
+          "value": "Item out of stock"
+        }
+      },
+      "full_text": "Cancel subscription Subscriptions POST https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/cancel Tool to cancel subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/cancel. Use this tool when the user wants to cancel subscription or perform subscriptions related operations."
+    },
+    {
+      "tool_id": "subscriptions_capture_authorized_payment_on_subscripti",
+      "name": "Capture authorized payment on subscription",
+      "folder": "Subscriptions",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/capture",
+      "description": "Tool to capture authorized payment on subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/capture. Use this tool when the user wants to capture authorized payment on subscription or perform subscriptions related operations.",
+      "parameters": {
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "Charging as the balance reached the limit"
+        },
+        "capture_type": {
+          "in": "body",
+          "description": "Body parameter: capture_type",
+          "value": "OUTSTANDING_BALANCE"
+        },
+        "amount": {
+          "in": "body",
+          "description": "Body parameter: amount",
+          "value": {
+            "currency_code": "USD",
+            "value": "100"
+          }
+        }
+      },
+      "full_text": "Capture authorized payment on subscription Subscriptions POST https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/capture Tool to capture authorized payment on subscription. Category: Subscriptions. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/capture. Use this tool when the user wants to capture authorized payment on subscription or perform subscriptions related operations."
+    },
+    {
+      "tool_id": "subscriptions_list_transactions_for_subscription",
+      "name": "List transactions for subscription",
+      "folder": "Subscriptions",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/transactions?start_time=2022-01-01T00:00:00.000Z&end_time=2030-01-01T00:00:00.000Z",
+      "description": "Tool to list transactions for subscription. Category: Subscriptions. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/transactions?start_time=2022-01-01T00:00:00.000Z&end_time=2030-01-01T00:00:00.000Z. Use this tool when the user wants to list transactions for subscription or perform subscriptions related operations.",
+      "parameters": {
+        "start_time": {
+          "in": "query",
+          "description": "(Required) The start time of the range of transactions to list.",
+          "value": "2022-01-01T00:00:00.000Z"
+        },
+        "end_time": {
+          "in": "query",
+          "description": "(Required) The end time of the range of transactions to list.",
+          "value": "2030-01-01T00:00:00.000Z"
+        }
+      },
+      "full_text": "List transactions for subscription Subscriptions GET https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/transactions?start_time=2022-01-01T00:00:00.000Z&end_time=2030-01-01T00:00:00.000Z Tool to list transactions for subscription. Category: Subscriptions. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/billing/subscriptions/:subscription_id/transactions?start_time=2022-01-01T00:00:00.000Z&end_time=2030-01-01T00:00:00.000Z. Use this tool when the user wants to list transactions for subscription or perform subscriptions related operations."
+    },
+    {
+      "tool_id": "payouts_create_batch_payout",
+      "name": "Create batch payout",
+      "folder": "Payouts",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/payments/payouts",
+      "description": "Tool to create batch payout. Category: Payouts. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/payments/payouts. Use this tool when the user wants to create batch payout or perform payouts related operations.",
+      "parameters": {
+        "sender_batch_header": {
+          "in": "body",
+          "description": "Body parameter: sender_batch_header",
+          "value": {
+            "sender_batch_id": "Payouts_{{$timestamp}}",
+            "email_subject": "You have a payout!",
+            "email_message": "You have received a payout! Thanks for using our service!"
+          }
+        },
+        "items": {
+          "in": "body",
+          "description": "Body parameter: items",
+          "value": [
+            {
+              "recipient_type": "EMAIL",
+              "amount": {
+                "value": "10.00",
+                "currency": "USD"
+              },
+              "note": "Thanks for your patronage!",
+              "sender_item_id": "201403140001",
+              "receiver": "{{$randomEmail}}",
+              "notification_language": "en-US"
+            },
+            {
+              "recipient_type": "PHONE",
+              "amount": {
+                "value": "20.00",
+                "currency": "USD"
+              },
+              "note": "Thanks for your support!",
+              "sender_item_id": "201403140002",
+              "receiver": "1-{{$randomPhoneNumber}}"
+            },
+            {
+              "recipient_type": "PAYPAL_ID",
+              "amount": {
+                "value": "30.00",
+                "currency": "USD"
+              },
+              "note": "Thanks for your patronage!",
+              "sender_item_id": "201403140003",
+              "receiver": "5DEJUG27PZB9J"
+            }
+          ]
+        }
+      },
+      "full_text": "Create batch payout Payouts POST https://api-m.sandbox.paypal.com/v1/payments/payouts Tool to create batch payout. Category: Payouts. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/payments/payouts. Use this tool when the user wants to create batch payout or perform payouts related operations."
+    },
+    {
+      "tool_id": "payouts_show_payout_batch_details",
+      "name": "Show payout batch details",
+      "folder": "Payouts",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/payments/payouts/:payout_batch_id",
+      "description": "Tool to show payout batch details. Category: Payouts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/payments/payouts/:payout_batch_id. Use this tool when the user wants to show payout batch details or perform payouts related operations.",
+      "parameters": {},
+      "full_text": "Show payout batch details Payouts GET https://api-m.sandbox.paypal.com/v1/payments/payouts/:payout_batch_id Tool to show payout batch details. Category: Payouts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/payments/payouts/:payout_batch_id. Use this tool when the user wants to show payout batch details or perform payouts related operations."
+    },
+    {
+      "tool_id": "payouts_show_payout_item_details",
+      "name": "Show payout item details",
+      "folder": "Payouts",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/payments/payouts-item/:payout_item_id",
+      "description": "Tool to show payout item details. Category: Payouts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/payments/payouts-item/:payout_item_id. Use this tool when the user wants to show payout item details or perform payouts related operations.",
+      "parameters": {},
+      "full_text": "Show payout item details Payouts GET https://api-m.sandbox.paypal.com/v1/payments/payouts-item/:payout_item_id Tool to show payout item details. Category: Payouts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/payments/payouts-item/:payout_item_id. Use this tool when the user wants to show payout item details or perform payouts related operations."
+    },
+    {
+      "tool_id": "payouts_cancel_unclaimed_payout_item",
+      "name": "Cancel unclaimed payout item",
+      "folder": "Payouts",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/payments/payouts-item/:payout_item_id/cancel",
+      "description": "Tool to cancel unclaimed payout item. Category: Payouts. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/payments/payouts-item/:payout_item_id/cancel. Use this tool when the user wants to cancel unclaimed payout item or perform payouts related operations.",
+      "parameters": {},
+      "full_text": "Cancel unclaimed payout item Payouts POST https://api-m.sandbox.paypal.com/v1/payments/payouts-item/:payout_item_id/cancel Tool to cancel unclaimed payout item. Category: Payouts. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/payments/payouts-item/:payout_item_id/cancel. Use this tool when the user wants to cancel unclaimed payout item or perform payouts related operations."
+    },
+    {
+      "tool_id": "webhooks_list_available_events",
+      "name": "List available events",
+      "folder": "Webhooks",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks-event-types",
+      "description": "Tool to list available events. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks-event-types. Use this tool when the user wants to list available events or perform webhooks related operations.",
+      "parameters": {},
+      "full_text": "List available events Webhooks GET https://api-m.sandbox.paypal.com/v1/notifications/webhooks-event-types Tool to list available events. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks-event-types. Use this tool when the user wants to list available events or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_create_webhook",
+      "name": "Create webhook",
+      "folder": "Webhooks",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks",
+      "description": "Tool to create webhook. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks. Use this tool when the user wants to create webhook or perform webhooks related operations.",
+      "parameters": {
+        "url": {
+          "in": "body",
+          "description": "Body parameter: url",
+          "value": "{{webhook_url}}"
+        },
+        "event_types": {
+          "in": "body",
+          "description": "Body parameter: event_types",
+          "value": [
+            {
+              "name": "*"
+            }
+          ]
+        }
+      },
+      "full_text": "Create webhook Webhooks POST https://api-m.sandbox.paypal.com/v1/notifications/webhooks Tool to create webhook. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks. Use this tool when the user wants to create webhook or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_list_webhooks",
+      "name": "List webhooks",
+      "folder": "Webhooks",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks",
+      "description": "Tool to list webhooks. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks. Use this tool when the user wants to list webhooks or perform webhooks related operations.",
+      "parameters": {},
+      "full_text": "List webhooks Webhooks GET https://api-m.sandbox.paypal.com/v1/notifications/webhooks Tool to list webhooks. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks. Use this tool when the user wants to list webhooks or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_show_webhook_details",
+      "name": "Show webhook details",
+      "folder": "Webhooks",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id",
+      "description": "Tool to show webhook details. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id. Use this tool when the user wants to show webhook details or perform webhooks related operations.",
+      "parameters": {},
+      "full_text": "Show webhook details Webhooks GET https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id Tool to show webhook details. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id. Use this tool when the user wants to show webhook details or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_list_event_notifications",
+      "name": "List event notifications",
+      "folder": "Webhooks",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events",
+      "description": "Tool to list event notifications. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events. Use this tool when the user wants to list event notifications or perform webhooks related operations.",
+      "parameters": {},
+      "full_text": "List event notifications Webhooks GET https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events Tool to list event notifications. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events. Use this tool when the user wants to list event notifications or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_list_event_subscriptions_for_webhook",
+      "name": "List event subscriptions for webhook",
+      "folder": "Webhooks",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id/event-types",
+      "description": "Tool to list event subscriptions for webhook. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id/event-types. Use this tool when the user wants to list event subscriptions for webhook or perform webhooks related operations.",
+      "parameters": {},
+      "full_text": "List event subscriptions for webhook Webhooks GET https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id/event-types Tool to list event subscriptions for webhook. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id/event-types. Use this tool when the user wants to list event subscriptions for webhook or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_show_event_notification_details",
+      "name": "Show event notification details",
+      "folder": "Webhooks",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events/:event_id",
+      "description": "Tool to show event notification details. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events/:event_id. Use this tool when the user wants to show event notification details or perform webhooks related operations.",
+      "parameters": {},
+      "full_text": "Show event notification details Webhooks GET https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events/:event_id Tool to show event notification details. Category: Webhooks. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events/:event_id. Use this tool when the user wants to show event notification details or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_trigger_a_sample_event",
+      "name": "Trigger a sample event",
+      "folder": "Webhooks",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/catalogs/products",
+      "description": "Tool to trigger a sample event. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products. Use this tool when the user wants to trigger a sample event or perform webhooks related operations.",
+      "parameters": {
+        "id": {
+          "in": "body",
+          "description": "Body parameter: id",
+          "value": "evnt_{{$timestamp}}"
+        },
+        "name": {
+          "in": "body",
+          "description": "Body parameter: name",
+          "value": "Soccer Event"
+        }
+      },
+      "full_text": "Trigger a sample event Webhooks POST https://api-m.sandbox.paypal.com/v1/catalogs/products Tool to trigger a sample event. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/catalogs/products. Use this tool when the user wants to trigger a sample event or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_verify_webhook_signature",
+      "name": "Verify webhook signature",
+      "folder": "Webhooks",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/verify-webhook-signature",
+      "description": "Tool to verify webhook signature. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/verify-webhook-signature. Use this tool when the user wants to verify webhook signature or perform webhooks related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": "{\n    \"webhook_id\": \"{{webhook_id}}\",\n    \"transmission_id\": \"{{event_transmission_id}}\",\n    \"transmission_time\": \"{{event_transmission_time}}\",\n    \"cert_url\": \"{{event_cert_url}}\",\n    \"auth_algo\": \"{{event_auth_algo}}\",\n    \"transmission_sig\": \"{{event_transmission_sig}}\",\n    \"webhook_event\": {{event_webhook_payload}}\n}"
+        }
+      },
+      "full_text": "Verify webhook signature Webhooks POST https://api-m.sandbox.paypal.com/v1/notifications/verify-webhook-signature Tool to verify webhook signature. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/verify-webhook-signature. Use this tool when the user wants to verify webhook signature or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_resend_event_notification",
+      "name": "Resend event notification",
+      "folder": "Webhooks",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events/:event_id/resend",
+      "description": "Tool to resend event notification. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events/:event_id/resend. Use this tool when the user wants to resend event notification or perform webhooks related operations.",
+      "parameters": {
+        "webhook_ids": {
+          "in": "body",
+          "description": "Body parameter: webhook_ids",
+          "value": [
+            "{{webhook_id}}"
+          ]
+        }
+      },
+      "full_text": "Resend event notification Webhooks POST https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events/:event_id/resend Tool to resend event notification. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks-events/:event_id/resend. Use this tool when the user wants to resend event notification or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_simulate_webhook_event",
+      "name": "Simulate webhook event",
+      "folder": "Webhooks",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/simulate-event",
+      "description": "Tool to simulate webhook event. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/simulate-event. Use this tool when the user wants to simulate webhook event or perform webhooks related operations.",
+      "parameters": {
+        "event_type": {
+          "in": "body",
+          "description": "Body parameter: event_type",
+          "value": "CUSTOMER.DISPUTE.CREATED"
+        },
+        "webhook_id": {
+          "in": "body",
+          "description": "Body parameter: webhook_id",
+          "value": "{{webhook_id}}"
+        },
+        "url": {
+          "in": "body",
+          "description": "Body parameter: url",
+          "value": "{{webhook_url}}"
+        },
+        "resource_version": {
+          "in": "body",
+          "description": "Body parameter: resource_version",
+          "value": "1.0"
+        }
+      },
+      "full_text": "Simulate webhook event Webhooks POST https://api-m.sandbox.paypal.com/v1/notifications/simulate-event Tool to simulate webhook event. Category: Webhooks. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/simulate-event. Use this tool when the user wants to simulate webhook event or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_update_webhook",
+      "name": "Update webhook",
+      "folder": "Webhooks",
+      "method": "PATCH",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id",
+      "description": "Tool to update webhook. Category: Webhooks. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id. Use this tool when the user wants to update webhook or perform webhooks related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": "[\n    {\n        \"op\": \"replace\",\n        \"path\": \"/event_types\",\n        \"value\": [\n            {\n                \"name\": \"CUSTOMER.DISPUTE.CREATED\"\n            },\n            {\n                \"name\": \"CATALOG.PRODUCT.CREATED\"\n            },\n            {\n                \"name\": \"BILLING.PLAN.PRICING-CHANGE.ACTIVATED\"\n            },\n            {\n                \"name\": \"PAYMENT.PAYOUTSBATCH.SUCCESS\"\n            },\n            {\n                \"name\": \"BILLING.PLAN.CREATED\"\n            }\n     "
+        }
+      },
+      "full_text": "Update webhook Webhooks PATCH https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id Tool to update webhook. Category: Webhooks. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id. Use this tool when the user wants to update webhook or perform webhooks related operations."
+    },
+    {
+      "tool_id": "webhooks_delete_webhook",
+      "name": "Delete webhook",
+      "folder": "Webhooks",
+      "method": "DELETE",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id",
+      "description": "Tool to delete webhook. Category: Webhooks. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id. Use this tool when the user wants to delete webhook or perform webhooks related operations.",
+      "parameters": {},
+      "full_text": "Delete webhook Webhooks DELETE https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id Tool to delete webhook. Category: Webhooks. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v1/notifications/webhooks/:webhook_id. Use this tool when the user wants to delete webhook or perform webhooks related operations."
+    },
+    {
+      "tool_id": "shipment_tracking_add_tracking_information_for_multiple_pa",
+      "name": "Add tracking information for multiple PayPal transactions",
+      "folder": "Shipment Tracking",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/shipping/trackers-batch",
+      "description": "Tool to add tracking information for multiple paypal transactions. Category: Shipment Tracking. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/shipping/trackers-batch. Use this tool when the user wants to add tracking information for multiple paypal transactions or perform shipment tracking related operations.",
+      "parameters": {
+        "trackers": {
+          "in": "body",
+          "description": "Body parameter: trackers",
+          "value": [
+            {
+              "transaction_id": "{{capture_id}}",
+              "status": "SHIPPED",
+              "tracking_number": "{{tracking_number}}",
+              "carrier": "FEDEX",
+              "tracking_number_type": "CARRIER_PROVIDED",
+              "shipment_date": "{{todays_date}}",
+              "carrier_name_other": "FEDEX Ground",
+              "notify_buyer": true,
+              "quantity": 1,
+              "tracking_number_validated": true
+            }
+          ]
+        }
+      },
+      "full_text": "Add tracking information for multiple PayPal transactions Shipment Tracking POST https://api-m.sandbox.paypal.com/v1/shipping/trackers-batch Tool to add tracking information for multiple paypal transactions. Category: Shipment Tracking. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/shipping/trackers-batch. Use this tool when the user wants to add tracking information for multiple paypal transactions or perform shipment tracking related operations."
+    },
+    {
+      "tool_id": "shipment_tracking_show_tracking_information",
+      "name": "Show tracking information",
+      "folder": "Shipment Tracking",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/shipping/trackers/:tracking_id",
+      "description": "Tool to show tracking information. Category: Shipment Tracking. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/shipping/trackers/:tracking_id. Use this tool when the user wants to show tracking information or perform shipment tracking related operations.",
+      "parameters": {},
+      "full_text": "Show tracking information Shipment Tracking GET https://api-m.sandbox.paypal.com/v1/shipping/trackers/:tracking_id Tool to show tracking information. Category: Shipment Tracking. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/shipping/trackers/:tracking_id. Use this tool when the user wants to show tracking information or perform shipment tracking related operations."
+    },
+    {
+      "tool_id": "shipment_tracking_update_or_cancel_tracking_information_fo",
+      "name": "Update or cancel tracking information for PayPal transaction",
+      "folder": "Shipment Tracking",
+      "method": "PUT",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/shipping/trackers/:tracking_id",
+      "description": "Tool to update or cancel tracking information for paypal transaction. Category: Shipment Tracking. HTTP Method: PUT. Endpoint: https://api-m.sandbox.paypal.com/v1/shipping/trackers/:tracking_id. Use this tool when the user wants to update or cancel tracking information for paypal transaction or perform shipment tracking related operations.",
+      "parameters": {
+        "transaction_id": {
+          "in": "body",
+          "description": "Body parameter: transaction_id",
+          "value": "{{capture_id}}"
+        },
+        "tracking_number": {
+          "in": "body",
+          "description": "Body parameter: tracking_number",
+          "value": "{{tracking_number}}"
+        },
+        "status": {
+          "in": "body",
+          "description": "Body parameter: status",
+          "value": "SHIPPED"
+        },
+        "carrier": {
+          "in": "body",
+          "description": "Body parameter: carrier",
+          "value": "OTHER"
+        },
+        "carrier_name_other": {
+          "in": "body",
+          "description": "Body parameter: carrier_name_other",
+          "value": "{{$randomCompanyName}}"
+        }
+      },
+      "full_text": "Update or cancel tracking information for PayPal transaction Shipment Tracking PUT https://api-m.sandbox.paypal.com/v1/shipping/trackers/:tracking_id Tool to update or cancel tracking information for paypal transaction. Category: Shipment Tracking. HTTP Method: PUT. Endpoint: https://api-m.sandbox.paypal.com/v1/shipping/trackers/:tracking_id. Use this tool when the user wants to update or cancel tracking information for paypal transaction or perform shipment tracking related operations."
+    },
+    {
+      "tool_id": "transaction_search_list_transactions",
+      "name": "List transactions",
+      "folder": "Transaction Search",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/reporting/transactions?fields=transaction_info,payer_info,shipping_info,auction_info,cart_info,incentive_info,store_info&start_date=2025-02-20T23:59:59.999Z&end_date=2025-03-20T00:00:00.000Z",
+      "description": "Tool to list transactions. Category: Transaction Search. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/reporting/transactions?fields=transaction_info,payer_info,shipping_info,auction_info,cart_info,incentive_info,store_info&start_date=2025-02-20T23:59:59.999Z&end_date=2025-03-20T00:00:00.000Z. Use this tool when the user wants to list transactions or perform transaction search related operations.",
+      "parameters": {
+        "fields": {
+          "in": "query",
+          "description": "Indicates which fields appear in the response. Value is a single field or a comma-separated list of fields. The <code>transaction_info</code> value returns only the transaction details in the response. To include all fields in the response, specify <code>fields=all</code>. Valid fields are:<ul><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-transaction_info\"><code>transaction_info</code></a>. The transaction information. Includes the ID of the PayPal account of the payee, the PayPal-generated transaction ID, the PayPal-generated base ID, the PayPal reference ID type, the transaction event code, the date and time when the transaction was initiated and was last updated, the transaction amounts including the PayPal fee, any discounts, insurance, the transaction status, and other information about the transaction.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-definition-payer_info\"><code>payer_info</code></a>. The payer information. Includes the PayPal customer account ID and the payer's email address, primary phone number, name, country code, address, and whether the payer is verified or unverified.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-shipping_info\"><code>shipping_info</code></a>. The shipping information. Includes the recipient's name, the shipping method for this order, the shipping address for this order, and the secondary address associated with this order.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-auction_info\"><code>auction_info</code></a>. The auction information. Includes the name of the auction site, the auction site URL, the ID of the customer who makes the purchase in the auction, and the date and time when the auction closes.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-cart_info\"><code>cart_info</code></a>. The cart information. Includes an array of item details, whether the item amount or the shipping amount already includes tax, and the ID of the invoice for PayPal-generated invoices.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-incentive_info\"><code>incentive_info</code></a>. An array of incentive detail objects. Each object includes the incentive, such as a special offer or coupon, the incentive amount, and the incentive program code that identifies a merchant loyalty or incentive program.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-store_info\"><code>store_info</code></a>. The store information. Includes the ID of the merchant store and the terminal ID for the checkout stand in the merchant store.</li></ul>",
+          "value": "transaction_info,payer_info,shipping_info,auction_info,cart_info,incentive_info,store_info"
+        },
+        "start_date": {
+          "in": "query",
+          "description": "(Required) Filters the transactions in the response by a start date and time, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). Seconds are required. Fractional seconds are optional.",
+          "value": "2025-02-20T23:59:59.999Z"
+        },
+        "end_date": {
+          "in": "query",
+          "description": "(Required) Filters the transactions in the response by an end date and time, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). Seconds are required. Fractional seconds are optional. The maximum supported range is 31 days.",
+          "value": "2025-03-20T00:00:00.000Z"
+        }
+      },
+      "full_text": "List transactions Transaction Search GET https://api-m.sandbox.paypal.com/v1/reporting/transactions?fields=transaction_info,payer_info,shipping_info,auction_info,cart_info,incentive_info,store_info&start_date=2025-02-20T23:59:59.999Z&end_date=2025-03-20T00:00:00.000Z Tool to list transactions. Category: Transaction Search. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/reporting/transactions?fields=transaction_info,payer_info,shipping_info,auction_info,cart_info,incentive_info,store_info&start_date=2025-02-20T23:59:59.999Z&end_date=2025-03-20T00:00:00.000Z. Use this tool when the user wants to list transactions or perform transaction search related operations."
+    },
+    {
+      "tool_id": "transaction_search_list_all_balances",
+      "name": "List all balances",
+      "folder": "Transaction Search",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/reporting/balances?as_of_time=2022-03-20T00:00:00.000Z&currency_code=ALL&include_crypto_currencies=true",
+      "description": "Tool to list all balances. Category: Transaction Search. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/reporting/balances?as_of_time=2022-03-20T00:00:00.000Z&currency_code=ALL&include_crypto_currencies=true. Use this tool when the user wants to list all balances or perform transaction search related operations.",
+      "parameters": {
+        "as_of_time": {
+          "in": "query",
+          "description": "List balances in the response at the date time provided, will return the last refreshed balance in the system when not provided.",
+          "value": "2022-03-20T00:00:00.000Z"
+        },
+        "currency_code": {
+          "in": "query",
+          "description": "Filters the transactions in the response by a [three-character ISO-4217 currency code](https://developer.paypal.com/docs/api/reference/currency-codes/) for the PayPal transaction currency.",
+          "value": "ALL"
+        },
+        "include_crypto_currencies": {
+          "in": "query",
+          "description": "Indicates whether the response list balances including crypto transactions. Value is either:<ul><li><code>false</code>. The default. The response doesn't include crypto transactions.</li><li><code>true</code>. The response also includes crypto transactions.</li></ul>",
+          "value": "true"
+        }
+      },
+      "full_text": "List all balances Transaction Search GET https://api-m.sandbox.paypal.com/v1/reporting/balances?as_of_time=2022-03-20T00:00:00.000Z&currency_code=ALL&include_crypto_currencies=true Tool to list all balances. Category: Transaction Search. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/reporting/balances?as_of_time=2022-03-20T00:00:00.000Z&currency_code=ALL&include_crypto_currencies=true. Use this tool when the user wants to list all balances or perform transaction search related operations."
+    },
+    {
+      "tool_id": "currency_exchange_create_currency_exchange_quote",
+      "name": "Create currency exchange quote",
+      "folder": "Currency Exchange",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/pricing/quote-exchange-rates",
+      "description": "Tool to create currency exchange quote. Category: Currency Exchange. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/pricing/quote-exchange-rates. Use this tool when the user wants to create currency exchange quote or perform currency exchange related operations.",
+      "parameters": {
+        "quote_items": {
+          "in": "body",
+          "description": "Body parameter: quote_items",
+          "value": [
+            {
+              "base_currency": "USD",
+              "base_amount": "20.00",
+              "quote_currency": "CAD"
+            }
+          ]
+        }
+      },
+      "full_text": "Create currency exchange quote Currency Exchange POST https://api-m.sandbox.paypal.com/v2/pricing/quote-exchange-rates Tool to create currency exchange quote. Category: Currency Exchange. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v2/pricing/quote-exchange-rates. Use this tool when the user wants to create currency exchange quote or perform currency exchange related operations."
+    },
+    {
+      "tool_id": "currency_exchange_get_currency_exchange_quote",
+      "name": "Get currency exchange quote",
+      "folder": "Currency Exchange",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v2/pricing/quote-exchange-rates/{{fx_id}}",
+      "description": "Tool to get currency exchange quote. Category: Currency Exchange. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/pricing/quote-exchange-rates/{{fx_id}}. Use this tool when the user wants to get currency exchange quote or perform currency exchange related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": ""
+        }
+      },
+      "full_text": "Get currency exchange quote Currency Exchange GET https://api-m.sandbox.paypal.com/v2/pricing/quote-exchange-rates/{{fx_id}} Tool to get currency exchange quote. Category: Currency Exchange. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v2/pricing/quote-exchange-rates/{{fx_id}}. Use this tool when the user wants to get currency exchange quote or perform currency exchange related operations."
+    },
+    {
+      "tool_id": "disputes_list_disputes",
+      "name": "List disputes",
+      "folder": "Disputes",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes",
+      "description": "Tool to list disputes. Category: Disputes. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes. Use this tool when the user wants to list disputes or perform disputes related operations.",
+      "parameters": {},
+      "full_text": "List disputes Disputes GET https://api-m.sandbox.paypal.com/v1/customer/disputes Tool to list disputes. Category: Disputes. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes. Use this tool when the user wants to list disputes or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_show_dispute_details",
+      "name": "Show dispute details",
+      "folder": "Disputes",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id",
+      "description": "Tool to show dispute details. Category: Disputes. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id. Use this tool when the user wants to show dispute details or perform disputes related operations.",
+      "parameters": {},
+      "full_text": "Show dispute details Disputes GET https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id Tool to show dispute details. Category: Disputes. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id. Use this tool when the user wants to show dispute details or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_accept_claim",
+      "name": "Accept claim",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/accept-claim",
+      "description": "Tool to accept claim. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/accept-claim. Use this tool when the user wants to accept claim or perform disputes related operations.",
+      "parameters": {
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "Full refund to the customer."
+        },
+        "accept_claim_reason": {
+          "in": "body",
+          "description": "Body parameter: accept_claim_reason",
+          "value": "DID_NOT_SHIP_ITEM"
+        },
+        "accept_claim_type": {
+          "in": "body",
+          "description": "Body parameter: accept_claim_type",
+          "value": "REFUND"
+        }
+      },
+      "full_text": "Accept claim Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/accept-claim Tool to accept claim. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/accept-claim. Use this tool when the user wants to accept claim or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_appeal_dispute",
+      "name": "Appeal dispute",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/appeal",
+      "description": "Tool to appeal dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/appeal. Use this tool when the user wants to appeal dispute or perform disputes related operations.",
+      "parameters": {},
+      "full_text": "Appeal dispute Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/appeal Tool to appeal dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/appeal. Use this tool when the user wants to appeal dispute or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_settle_dispute",
+      "name": "Settle dispute",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/adjudicate",
+      "description": "Tool to settle dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/adjudicate. Use this tool when the user wants to settle dispute or perform disputes related operations.",
+      "parameters": {
+        "adjudication_outcome": {
+          "in": "body",
+          "description": "Body parameter: adjudication_outcome",
+          "value": "BUYER_FAVOR"
+        }
+      },
+      "full_text": "Settle dispute Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/adjudicate Tool to settle dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/adjudicate. Use this tool when the user wants to settle dispute or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_update_dispute_status",
+      "name": "Update dispute status",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/require-evidence",
+      "description": "Tool to update dispute status. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/require-evidence. Use this tool when the user wants to update dispute status or perform disputes related operations.",
+      "parameters": {
+        "action": {
+          "in": "body",
+          "description": "Body parameter: action",
+          "value": "BUYER_EVIDENCE"
+        }
+      },
+      "full_text": "Update dispute status Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/require-evidence Tool to update dispute status. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/require-evidence. Use this tool when the user wants to update dispute status or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_make_offer_to_resolve_dispute",
+      "name": "Make offer to resolve dispute",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/make-offer",
+      "description": "Tool to make offer to resolve dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/make-offer. Use this tool when the user wants to make offer to resolve dispute or perform disputes related operations.",
+      "parameters": {
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "Offer refund with replacement item."
+        },
+        "offer_amount": {
+          "in": "body",
+          "description": "Body parameter: offer_amount",
+          "value": {
+            "currency_code": "USD",
+            "value": "23"
+          }
+        },
+        "offer_type": {
+          "in": "body",
+          "description": "Body parameter: offer_type",
+          "value": "REFUND_WITH_REPLACEMENT"
+        }
+      },
+      "full_text": "Make offer to resolve dispute Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/make-offer Tool to make offer to resolve dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/make-offer. Use this tool when the user wants to make offer to resolve dispute or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_provide_evidence",
+      "name": "Provide evidence",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/provide-evidence",
+      "description": "Tool to provide evidence. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/provide-evidence. Use this tool when the user wants to provide evidence or perform disputes related operations.",
+      "parameters": {},
+      "full_text": "Provide evidence Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/provide-evidence Tool to provide evidence. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/provide-evidence. Use this tool when the user wants to provide evidence or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_acknowledge_returned_item",
+      "name": "Acknowledge returned item",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/acknowledge-return-item",
+      "description": "Tool to acknowledge returned item. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/acknowledge-return-item. Use this tool when the user wants to acknowledge returned item or perform disputes related operations.",
+      "parameters": {
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "I have received the item back."
+        },
+        "acknowledgement_type": {
+          "in": "body",
+          "description": "Body parameter: acknowledgement_type",
+          "value": "ITEM_RECEIVED"
+        }
+      },
+      "full_text": "Acknowledge returned item Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/acknowledge-return-item Tool to acknowledge returned item. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/acknowledge-return-item. Use this tool when the user wants to acknowledge returned item or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_provide_supporting_information_for_dispu",
+      "name": "Provide supporting information for dispute",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/provide-supporting-info",
+      "description": "Tool to provide supporting information for dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/provide-supporting-info. Use this tool when the user wants to provide supporting information for dispute or perform disputes related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": ""
+        }
+      },
+      "full_text": "Provide supporting information for dispute Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/provide-supporting-info Tool to provide supporting information for dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/provide-supporting-info. Use this tool when the user wants to provide supporting information for dispute or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_escalate_dispute_to_claim",
+      "name": "Escalate dispute to claim",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/escalate",
+      "description": "Tool to escalate dispute to claim. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/escalate. Use this tool when the user wants to escalate dispute to claim or perform disputes related operations.",
+      "parameters": {
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "Escalating to PayPal claim for resolution."
+        }
+      },
+      "full_text": "Escalate dispute to claim Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/escalate Tool to escalate dispute to claim. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/escalate. Use this tool when the user wants to escalate dispute to claim or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_accept_offer_to_resolve_dispute",
+      "name": "Accept offer to resolve dispute",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/accept-offer",
+      "description": "Tool to accept offer to resolve dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/accept-offer. Use this tool when the user wants to accept offer to resolve dispute or perform disputes related operations.",
+      "parameters": {
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "I am ok with the refund offered."
+        }
+      },
+      "full_text": "Accept offer to resolve dispute Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/accept-offer Tool to accept offer to resolve dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/accept-offer. Use this tool when the user wants to accept offer to resolve dispute or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_send_message_about_dispute_to_other_part",
+      "name": "Send message about dispute to other party",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/send-message",
+      "description": "Tool to send message about dispute to other party. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/send-message. Use this tool when the user wants to send message about dispute to other party or perform disputes related operations.",
+      "parameters": {
+        "message": {
+          "in": "body",
+          "description": "Body parameter: message",
+          "value": "Shipment is in progress."
+        }
+      },
+      "full_text": "Send message about dispute to other party Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/send-message Tool to send message about dispute to other party. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/send-message. Use this tool when the user wants to send message about dispute to other party or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_deny_offer_to_resolve_dispute",
+      "name": "Deny offer to resolve dispute",
+      "folder": "Disputes",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/deny-offer",
+      "description": "Tool to deny offer to resolve dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/deny-offer. Use this tool when the user wants to deny offer to resolve dispute or perform disputes related operations.",
+      "parameters": {
+        "note": {
+          "in": "body",
+          "description": "Body parameter: note",
+          "value": "refund offer is very low."
+        }
+      },
+      "full_text": "Deny offer to resolve dispute Disputes POST https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/deny-offer Tool to deny offer to resolve dispute. Category: Disputes. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id/deny-offer. Use this tool when the user wants to deny offer to resolve dispute or perform disputes related operations."
+    },
+    {
+      "tool_id": "disputes_partially_update_dispute",
+      "name": "Partially update dispute",
+      "folder": "Disputes",
+      "method": "PATCH",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id",
+      "description": "Tool to partially update dispute. Category: Disputes. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id. Use this tool when the user wants to partially update dispute or perform disputes related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/communication_details\",\n        \"value\": {\n            \"email\": \"merchant@example.com\",\n            \"note\": \"Please send a picture of items to the above email address.\"\n        }\n    }\n]"
+        }
+      },
+      "full_text": "Partially update dispute Disputes PATCH https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id Tool to partially update dispute. Category: Disputes. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/disputes/:dispute_id. Use this tool when the user wants to partially update dispute or perform disputes related operations."
+    },
+    {
+      "tool_id": "manage_accounts_create_managed_account",
+      "name": "Create managed account",
+      "folder": "Manage Accounts",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/customer/managed-accounts",
+      "description": "Tool to create managed account. Category: Manage Accounts. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts. Use this tool when the user wants to create managed account or perform manage accounts related operations.",
+      "parameters": {
+        "external_id": {
+          "in": "body",
+          "description": "Body parameter: external_id",
+          "value": "EXT-{{$timestamp}}"
+        },
+        "legal_country_code": {
+          "in": "body",
+          "description": "Body parameter: legal_country_code",
+          "value": "US"
+        },
+        "organization": {
+          "in": "body",
+          "description": "Body parameter: organization",
+          "value": "{{managed_path_organization}}"
+        },
+        "user_id": {
+          "in": "body",
+          "description": "Body parameter: user_id",
+          "value": "{{$timestamp}}"
+        },
+        "primary_currency_code": {
+          "in": "body",
+          "description": "Body parameter: primary_currency_code",
+          "value": "USD"
+        },
+        "individual_owners": {
+          "in": "body",
+          "description": "Body parameter: individual_owners",
+          "value": [
+            {
+              "names": [
+                {
+                  "given_name": "TONY",
+                  "surname": "STARK",
+                  "type": "LEGAL"
+                }
+              ],
+              "addresses": [
+                {
+                  "address_line_1": "W 294 STR",
+                  "admin_area_2": "New York",
+                  "postal_code": "95014",
+                  "country_code": "US",
+                  "type": "HOME"
+                }
+              ]
+            }
+          ]
+        },
+        "business_entity": {
+          "in": "body",
+          "description": "Body parameter: business_entity",
+          "value": {
+            "type": "CORPORATION",
+            "incorporation_details": {},
+            "names": [
+              {
+                "business_name": "STARK INDUSTRY.",
+                "type": "LEGAL"
+              }
+            ],
+            "registered_business_address": {
+              "address_line_1": "W 294 STR",
+              "admin_area_2": "New York",
+              "postal_code": "95014",
+              "country_code": "US"
+            },
+            "phone_numbers": [
+              {
+                "country_code": "1",
+                "national_number": "1",
+                "type": "BUSINESS"
+              }
+            ],
+            "identification_documents": [
+              {
+                "identification_number": "32-2124444",
+                "issuing_country_code": "US",
+                "type": "EMPLOYER_IDENTIFICATION_NUMBER"
+              }
+            ],
+            "beneficial_owners": {
+              "individuals": [
+                {
+                  "names": [
+                    {
+                      "given_name": "Tom",
+                      "surname": "Norman",
+                      "type": "LEGAL"
+                    }
+                  ],
+                  "citizenship": "US",
+                  "addresses": [
+                    {
+                      "address_line_1": "W 294 STR",
+                      "admin_area_2": "New York",
+                      "postal_code": "95148",
+                      "country_code": "US",
+                      "type": "HOME"
+                    }
+                  ],
+                  "birth_details": {
+                    "date_of_birth": "1960-01-01"
+                  },
+                  "identification_documents": [
+                    {
+                      "identification_number": "123-44-6789",
+                      "issuing_country_code": "US",
+                      "type": "SOCIAL_SECURITY_NUMBER"
+                    }
+                  ],
+                  "percentage_of_ownership": "26",
+                  "controlling_influence": false
+                },
+                {
+                  "names": [
+                    {
+                      "given_name": "Mary",
+                      "surname": "Smoth",
+                      "type": "LEGAL"
+                    }
+                  ],
+                  "citizenship": "US",
+                  "addresses": [
+                    {
+                      "address_line_1": "W 294 STR",
+                      "admin_area_2": "New York",
+                      "postal_code": "95148",
+                      "country_code": "US",
+                      "type": "HOME"
+                    }
+                  ],
+                  "birth_details": {
+                    "date_of_birth": "1960-01-01"
+                  },
+                  "identification_documents": [
+                    {
+                      "identification_number": "123-54-6789",
+                      "issuing_country_code": "US",
+                      "type": "SOCIAL_SECURITY_NUMBER"
+                    }
+                  ],
+                  "percentage_of_ownership": "35",
+                  "controlling_influence": false
+                }
+              ]
+            },
+            "office_bearers": [
+              {
+                "names": [
+                  {
+                    "given_name": "Katy",
+                    "surname": "Collins",
+                    "type": "LEGAL"
+                  }
+                ],
+                "citizenship": "US",
+                "addresses": [
+                  {
+                    "address_line_1": "W 294 STR",
+                    "admin_area_2": "New York",
+                    "postal_code": "22903",
+                    "country_code": "US",
+                    "type": "HOME"
+                  }
+                ],
+                "birth_details": {
+                  "date_of_birth": "1990-01-01"
+                }
+              },
+              {
+                "names": [
+                  {
+                    "given_name": "Donald",
+                    "surname": "TREASWILLIAMSON",
+                    "type": "LEGAL"
+                  }
+                ],
+                "citizenship": "US",
+                "addresses": [
+                  {
+                    "address_line_1": "W 294 STR",
+                    "admin_area_2": "New York",
+                    "postal_code": "29212",
+                    "country_code": "US",
+                    "type": "HOME"
+                  }
+                ],
+                "birth_details": {
+                  "date_of_birth": "1991-05-30"
+                },
+                "identification_documents": [
+                  {
+                    "identification_number": "729265100",
+                    "issuing_country_code": "US",
+                    "type": "SOCIAL_SECURITY_NUMBER"
+                  }
+                ]
+              }
+            ],
+            "declarations": [
+              {
+                "name": "TWENTY_FIVE_PERCENT_BENEFICIAL_OWNER",
+                "value": "YES"
+              }
+            ]
+          }
+        },
+        "agreements": {
+          "in": "body",
+          "description": "Body parameter: agreements",
+          "value": [
+            {
+              "type": "TERMS_ACCEPTED",
+              "major_version": 3,
+              "minor_version": 3,
+              "accepted_time": "2022-09-10T00:00:00Z"
+            },
+            {
+              "type": "PERSONAL_INFORMATION_COLLECTION_CONSENT",
+              "major_version": 1,
+              "minor_version": 1,
+              "accepted_time": "2022-09-10T00:00:00Z"
+            }
+          ]
+        }
+      },
+      "full_text": "Create managed account Manage Accounts POST https://api-m.sandbox.paypal.com/v3/customer/managed-accounts Tool to create managed account. Category: Manage Accounts. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts. Use this tool when the user wants to create managed account or perform manage accounts related operations."
+    },
+    {
+      "tool_id": "manage_accounts_search_managed_account_through_external_",
+      "name": "Search managed account through external id",
+      "folder": "Manage Accounts",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/customer/managed-accounts?external_id={{managed_path_external_id}}",
+      "description": "Tool to search managed account through external id. Category: Manage Accounts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts?external_id={{managed_path_external_id}}. Use this tool when the user wants to search managed account through external id or perform manage accounts related operations.",
+      "parameters": {
+        "external_id": {
+          "in": "query",
+          "description": "The `external_id` query parameter can be used to request managed accounts with the given external_id. Searches for the managed account that has the given external_id. To locate a particular account, you should set this to the same value that you provided in the /external_id property in your Create Managed Account request.\n\n",
+          "value": "{{managed_path_external_id}}"
+        }
+      },
+      "full_text": "Search managed account through external id Manage Accounts GET https://api-m.sandbox.paypal.com/v3/customer/managed-accounts?external_id={{managed_path_external_id}} Tool to search managed account through external id. Category: Manage Accounts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts?external_id={{managed_path_external_id}}. Use this tool when the user wants to search managed account through external id or perform manage accounts related operations."
+    },
+    {
+      "tool_id": "manage_accounts_search_managed_account_by_seller_id",
+      "name": "Search managed account by Seller Id",
+      "folder": "Manage Accounts",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id",
+      "description": "Tool to search managed account by seller id. Category: Manage Accounts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id. Use this tool when the user wants to search managed account by seller id or perform manage accounts related operations.",
+      "parameters": {},
+      "full_text": "Search managed account by Seller Id Manage Accounts GET https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id Tool to search managed account by seller id. Category: Manage Accounts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id. Use this tool when the user wants to search managed account by seller id or perform manage accounts related operations."
+    },
+    {
+      "tool_id": "manage_accounts_partially_updates_information_for_a_mana",
+      "name": "Partially updates information for a managed account",
+      "folder": "Manage Accounts",
+      "method": "PATCH",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id",
+      "description": "Tool to partially updates information for a managed account. Category: Manage Accounts. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id. Use this tool when the user wants to partially updates information for a managed account or perform manage accounts related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": "[\n    {\n        \"op\": \"add\",\n        \"path\": \"/attributes\",\n        \"value\": [\n            {\n                \"name\": \"SELF_CERTIFICATION\",\n                \"value\": \"true\"\n            }\n        ]\n    }\n]\n"
+        }
+      },
+      "full_text": "Partially updates information for a managed account Manage Accounts PATCH https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id Tool to partially updates information for a managed account. Category: Manage Accounts. HTTP Method: PATCH. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id. Use this tool when the user wants to partially updates information for a managed account or perform manage accounts related operations."
+    },
+    {
+      "tool_id": "manage_accounts_shows_collection_of_registered_wallet_do",
+      "name": "Shows collection of registered wallet domains",
+      "folder": "Manage Accounts",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id/wallet-domains",
+      "description": "Tool to shows collection of registered wallet domains. Category: Manage Accounts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id/wallet-domains. Use this tool when the user wants to shows collection of registered wallet domains or perform manage accounts related operations.",
+      "parameters": {},
+      "full_text": "Shows collection of registered wallet domains Manage Accounts GET https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id/wallet-domains Tool to shows collection of registered wallet domains. Category: Manage Accounts. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/customer/managed-accounts/:id/wallet-domains. Use this tool when the user wants to shows collection of registered wallet domains or perform manage accounts related operations."
+    },
+    {
+      "tool_id": "manage_accounts_upload_document_by_verification_token",
+      "name": "Upload document by verification token",
+      "folder": "Manage Accounts",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/customer/supporting-documents/:token/upload",
+      "description": "Tool to upload document by verification token. Category: Manage Accounts. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/supporting-documents/:token/upload. Use this tool when the user wants to upload document by verification token or perform manage accounts related operations.",
+      "parameters": {},
+      "full_text": "Upload document by verification token Manage Accounts POST https://api-m.sandbox.paypal.com/v1/customer/supporting-documents/:token/upload Tool to upload document by verification token. Category: Manage Accounts. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v1/customer/supporting-documents/:token/upload. Use this tool when the user wants to upload document by verification token or perform manage accounts related operations."
+    },
+    {
+      "tool_id": "vault_payment_source_-_setup_tokens_create_a_setup_token",
+      "name": "Create a setup token",
+      "folder": "Vault Payment Source - Setup Tokens",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/vault/setup-tokens",
+      "description": "Tool to create a setup token. Category: Vault Payment Source - Setup Tokens. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/setup-tokens. Use this tool when the user wants to create a setup token or perform vault payment source - setup tokens related operations.",
+      "parameters": {
+        "payment_source": {
+          "in": "body",
+          "description": "Body parameter: payment_source",
+          "value": {
+            "card": {
+              "number": "{{card_number}}",
+              "expiry": "2027-02",
+              "name": "John Doe",
+              "billing_address": {
+                "address_line_1": "2211 N First Street",
+                "address_line_2": "17.3.160",
+                "admin_area_1": "CA",
+                "admin_area_2": "San Jose",
+                "postal_code": "95131",
+                "country_code": "US"
+              }
+            }
+          }
+        }
+      },
+      "full_text": "Create a setup token Vault Payment Source - Setup Tokens POST https://api-m.sandbox.paypal.com/v3/vault/setup-tokens Tool to create a setup token. Category: Vault Payment Source - Setup Tokens. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/setup-tokens. Use this tool when the user wants to create a setup token or perform vault payment source - setup tokens related operations."
+    },
+    {
+      "tool_id": "vault_payment_source_-_setup_tokens_retrieve_a_setup_token",
+      "name": "Retrieve a setup token",
+      "folder": "Vault Payment Source - Setup Tokens",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/vault/setup-tokens/:setup_token_id",
+      "description": "Tool to retrieve a setup token. Category: Vault Payment Source - Setup Tokens. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/setup-tokens/:setup_token_id. Use this tool when the user wants to retrieve a setup token or perform vault payment source - setup tokens related operations.",
+      "parameters": {},
+      "full_text": "Retrieve a setup token Vault Payment Source - Setup Tokens GET https://api-m.sandbox.paypal.com/v3/vault/setup-tokens/:setup_token_id Tool to retrieve a setup token. Category: Vault Payment Source - Setup Tokens. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/setup-tokens/:setup_token_id. Use this tool when the user wants to retrieve a setup token or perform vault payment source - setup tokens related operations."
+    },
+    {
+      "tool_id": "vault_payment_source_-_payment_token_create_payment_token",
+      "name": "Create payment token",
+      "folder": "Vault Payment Source - Payment token",
+      "method": "POST",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/vault/payment-tokens",
+      "description": "Tool to create payment token. Category: Vault Payment Source - Payment token. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/payment-tokens. Use this tool when the user wants to create payment token or perform vault payment source - payment token related operations.",
+      "parameters": {
+        "payment_source": {
+          "in": "body",
+          "description": "Body parameter: payment_source",
+          "value": {
+            "token": {
+              "id": "{{setup_token_id}}",
+              "type": "SETUP_TOKEN"
+            }
+          }
+        }
+      },
+      "full_text": "Create payment token Vault Payment Source - Payment token POST https://api-m.sandbox.paypal.com/v3/vault/payment-tokens Tool to create payment token. Category: Vault Payment Source - Payment token. HTTP Method: POST. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/payment-tokens. Use this tool when the user wants to create payment token or perform vault payment source - payment token related operations."
+    },
+    {
+      "tool_id": "vault_payment_source_-_payment_token_retrieve_a_payment_token",
+      "name": "Retrieve a payment token",
+      "folder": "Vault Payment Source - Payment token",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/vault/payment-tokens/:payment_token_id",
+      "description": "Tool to retrieve a payment token. Category: Vault Payment Source - Payment token. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/payment-tokens/:payment_token_id. Use this tool when the user wants to retrieve a payment token or perform vault payment source - payment token related operations.",
+      "parameters": {
+        "raw_body": {
+          "in": "body",
+          "description": "Raw request body",
+          "value": ""
+        }
+      },
+      "full_text": "Retrieve a payment token Vault Payment Source - Payment token GET https://api-m.sandbox.paypal.com/v3/vault/payment-tokens/:payment_token_id Tool to retrieve a payment token. Category: Vault Payment Source - Payment token. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/payment-tokens/:payment_token_id. Use this tool when the user wants to retrieve a payment token or perform vault payment source - payment token related operations."
+    },
+    {
+      "tool_id": "vault_payment_source_-_payment_token_delete_payment_token",
+      "name": "Delete payment token",
+      "folder": "Vault Payment Source - Payment token",
+      "method": "DELETE",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/vault/payment-tokens/:payment_token_id",
+      "description": "Tool to delete payment token. Category: Vault Payment Source - Payment token. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/payment-tokens/:payment_token_id. Use this tool when the user wants to delete payment token or perform vault payment source - payment token related operations.",
+      "parameters": {},
+      "full_text": "Delete payment token Vault Payment Source - Payment token DELETE https://api-m.sandbox.paypal.com/v3/vault/payment-tokens/:payment_token_id Tool to delete payment token. Category: Vault Payment Source - Payment token. HTTP Method: DELETE. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/payment-tokens/:payment_token_id. Use this tool when the user wants to delete payment token or perform vault payment source - payment token related operations."
+    },
+    {
+      "tool_id": "vault_payment_source_-_payment_token_list_all_payment_tokens_for_customer",
+      "name": "List all payment tokens for customer",
+      "folder": "Vault Payment Source - Payment token",
+      "method": "GET",
+      "endpoint": "https://api-m.sandbox.paypal.com/v3/vault/payment-tokens?customer_id={{vault_customer_id}}",
+      "description": "Tool to list all payment tokens for customer. Category: Vault Payment Source - Payment token. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/payment-tokens?customer_id={{vault_customer_id}}. Use this tool when the user wants to list all payment tokens for customer or perform vault payment source - payment token related operations.",
+      "parameters": {
+        "customer_id": {
+          "in": "query",
+          "description": "",
+          "value": "{{vault_customer_id}}"
+        }
+      },
+      "full_text": "List all payment tokens for customer Vault Payment Source - Payment token GET https://api-m.sandbox.paypal.com/v3/vault/payment-tokens?customer_id={{vault_customer_id}} Tool to list all payment tokens for customer. Category: Vault Payment Source - Payment token. HTTP Method: GET. Endpoint: https://api-m.sandbox.paypal.com/v3/vault/payment-tokens?customer_id={{vault_customer_id}}. Use this tool when the user wants to list all payment tokens for customer or perform vault payment source - payment token related operations."
+    }
+  ]
+}

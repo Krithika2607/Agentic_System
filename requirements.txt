@@ -1,0 +1,16 @@
+langchain
+langchain-groq
+langchain-community
+langgraph
+langsmith
+chromadb
+sentence-transformers
+streamlit
+python-dotenv
+requests
+pydantic
+tiktoken
+pypdf
+pdfplumber
+pymupdf
+groq
